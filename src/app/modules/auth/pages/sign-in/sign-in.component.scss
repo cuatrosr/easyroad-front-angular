@@ -1,0 +1,23 @@
+.is__invalid-input {
+  border-color: #e11d48;
+}
+
+.is__invalid-error {
+  color: #e11d48;
+  @apply px-1 pt-1 text-xs;
+}
+
+.card{
+
+  .input_group {
+    margin-top: 1.5rem;
+    height: 47%;
+    
+    input {
+      font-family: 'Montserrat-Regular', sans-serif;
+      font-weight: 400;
+      letter-spacing: .07em;
+    }
+  }
+
+}

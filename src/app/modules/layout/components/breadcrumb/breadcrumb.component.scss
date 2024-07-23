@@ -1,0 +1,17 @@
+:host ::ng-deep .p-breadcrumb {
+  background: hsl(var(--background)) !important;
+  display: flex;
+  justify-content: center;
+}
+:host ::ng-deep .p-breadcrumb .p-menuitem-icon {
+  color: hsl(var(--foreground)) !important;
+}
+:host ::ng-deep .p-breadcrumb .p-menuitem-text {
+  color: hsl(var(--muted-foreground)) !important;
+}
+:host ::ng-deep .p-breadcrumb .p-menuitem-link {
+  color: hsl(var(--muted-foreground)) !important;
+}
+:host ::ng-deep .p-breadcrumb .p-menuitem-separator {
+  color: hsl(var(--foreground)) !important;
+}

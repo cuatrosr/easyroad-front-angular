@@ -1,0 +1,30 @@
+version: '3.8'
+
+name: easyroad
+
+services:
+  vite:
+    container_name: angular
+    build:
+      context: .
+    ports:
+      - "4250:4250"
+    external_links:
+      - nestjs
+    networks:
+      - networkEasyroad
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: "4g"
+        reservations:
+          cpus: "0.25"
+          memory: "512m"
+
+networks:
+  networkEasyroad:
+    name: networkEasyroad
+
+volumes:
+  node_modules:

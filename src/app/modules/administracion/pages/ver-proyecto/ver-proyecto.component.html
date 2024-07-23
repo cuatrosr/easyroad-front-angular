@@ -1,0 +1,32 @@
+<div class="px-4 py-4 grid grid-cols-1 lg:grid-cols-2 gap-4">
+  <section class="rounded-lg h-full w-full grid bg-background pt-4">
+    <div class="rounded-lg bg-background text-xs grid grid-cols-1 mx-auto items-center justify-center">
+      <div class="flex flex-col border shadow-lg rounded-lg bg-background h-fit w-[20rem]">
+        <div [ngStyle]="{ 'background-image': 'url(' + project.image + ')' }" class="h-[13rem] bg-cover"></div>
+        <div class="inline-block px-4 py-4">
+          <h3 class="font-semibold text-foreground font-montserrat">{{ project.name }}</h3>
+          <div class="space-x-1 text-xs font-medium text-muted-foreground font-montserrat">
+            <span>{{ project.description }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <app-grid-administracion-card
+    [alert]="alertCount"
+    [working]="workingCount"
+    [disconnected]="disconnectedCount"></app-grid-administracion-card>
+
+  <div class="col-span-1 lg:col-span-2">
+    <app-tabla-eventos [events]="events"></app-tabla-eventos>
+  </div>
+
+  <div class="col-span-1 lg:col-span-2">
+    <app-tabla-alertas [alerts]="alerts"></app-tabla-alertas>
+  </div>
+
+  <div class="col-span-1 lg:col-span-2">
+    <app-tabla-postes [poles]="poles" [projectId]="projectId"></app-tabla-postes>
+  </div>
+</div>

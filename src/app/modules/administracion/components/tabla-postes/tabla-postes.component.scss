@@ -1,0 +1,31 @@
+:host ::ng-deep .p-datatable .p-datatable-header {
+  background: hsl(var(--table)) !important;
+}
+:host ::ng-deep .p-datatable thead.p-datatable-thead tr th {
+  background: hsl(var(--table)) !important;
+  color: hsl(var(--foreground)) !important;
+}
+:host ::ng-deep .p-datatable .p-paginator {
+  background: hsl(var(--background)) !important;
+}
+:host ::ng-deep .p-datatable tbody.p-datatable-tbody tr {
+  background: hsl(var(--background)) !important;
+  border-color: hsl(var(--border)) !important;
+  color: hsl(var(--muted-foreground)) !important;
+}
+:host ::ng-deep .p-datatable .p-dropdown {
+  border-color: hsl(var(--border)) !important;
+  background: hsl(var(--table-foreground)) !important;
+}
+:host ::ng-deep .p-datatable .p-dropdown-label {
+  color: hsl(var(--foreground)) !important;
+}
+:host ::ng-deep .p-datatable .p-dropdown-trigger-icon {
+  color: hsl(var(--foreground)) !important;
+}
+:host ::ng-deep .p-datatable .p-highlight {
+  color: hsl(var(--foreground)) !important;
+}
+:host ::ng-deep .p-datatable .p-disabled {
+  color: hsl(var(--muted-foreground)) !important;
+}

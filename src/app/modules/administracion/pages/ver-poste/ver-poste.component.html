@@ -1,0 +1,156 @@
+<p-toast></p-toast>
+<div class="px-4 py-4 grid grid-cols-1 gap-4">
+  <section class="rounded-lg bg-background px-8 py-8">
+    <div class="grid gap-4 mx-auto">
+      <div class="flex justify-center">
+        <div class="flex items-center p-4 bg-blue-100 rounded-md shadow-md">
+          <svg class="w-10 h-10 text-blue-500 mr-4" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              fill-rule="evenodd"
+              d="M18 10A8 8 0 1 1 2 10a8 8 0 0 1 16 0zM9 4a1 1 0 1 0-2 0v4a1 1 0 0 0 1 1h4a1 1 0 1 0 0-2H9V4z"
+              clip-rule="evenodd" />
+          </svg>
+          <div>
+            <p class="text-lg font-medium">¡El poste se debe configurar para conectarse!</p>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="pole?.state === 'alert'" class="flex justify-center">
+        <button
+          (click)="handleResolve()"
+          class="mt-2 px-4 py-2 text-sm font-semibold text-primary-foreground bg-yellow-500 rounded-md hover:bg-yellow-600">
+          Resolver
+        </button>
+      </div>
+    </div>
+  </section>
+  <section class="rounded-lg bg-background px-8 py-8">
+    <div class="grid grid-cols-2 lg:grid-cols-2 mb-4">
+      <div
+        class="mt-2 text-center border-b-0 font-bold text-foreground border-t-2 border-l-2 border-r-2 py-2 px-2 col-span-2">
+        <h1>Información Basica del Poste</h1>
+      </div>
+      <div class="border-2 p-2">
+        <h2 class="font-bold text-foreground">Serial</h2>
+      </div>
+      <div class="border-2 p-2 text-center border-l-0 text-foreground">
+        <h2>{{ poleSerial }}</h2>
+      </div>
+      <div class="border-2 p-2 border-t-0 text-foreground">
+        <h2 class="font-bold text-foreground">Fabricante</h2>
+      </div>
+      <div class="border-2 p-2 text-center border-l-0 border-t-0 text-foreground">
+        <h2>{{ pole.fabricante }}</h2>
+      </div>
+      <div class="border-2 p-2 border-t-0 text-foreground">
+        <h2 class="font-bold text-foreground">Modelo</h2>
+      </div>
+      <div class="border-2 p-2 text-center border-l-0 border-t-0 text-foreground">
+        <h2>{{ pole.modelo }}</h2>
+      </div>
+      <div class="border-2 p-2 border-t-0 text-foreground">
+        <h2 class="font-bold text-foreground">Estado</h2>
+      </div>
+      <div class="border-2 p-2 text-center border-l-0 border-t-0 text-foreground">
+        <h2>{{ pole.state }}</h2>
+      </div>
+      <div class="border-2 p-2 border-t-0 text-foreground">
+        <h2 class="font-bold text-foreground">IMEI</h2>
+      </div>
+      <div class="border-2 p-2 text-center border-l-0 border-t-0 text-foreground">
+        <h2>{{ heartbeat.contenido?.imei }}</h2>
+      </div>
+      <div class="border-2 p-2 border-t-0 text-foreground">
+        <h2 class="font-bold text-foreground">SIM Numero</h2>
+      </div>
+      <div class="border-2 p-2 text-center border-l-0 border-t-0 text-foreground">
+        <h2>{{ heartbeat.contenido?.numero_sim }}</h2>
+      </div>
+      <div class="border-2 p-2 border-t-0 text-foreground">
+        <h2 class="font-bold text-foreground">Operador</h2>
+      </div>
+      <div class="border-2 p-2 text-center border-l-0 border-t-0 text-foreground">
+        <h2>{{ heartbeat.contenido?.operador }}</h2>
+      </div>
+      <div
+        class="text-center border-b-0 border-t-0 font-bold text-foreground border-l-2 border-r-2 py-2 px-2 col-span-2">
+        <h1>Información Avanzada del Poste</h1>
+      </div>
+      <div class="border-2 p-2">
+        <h2 class="font-bold text-foreground">Voltaje Bateria</h2>
+      </div>
+      <div class="border-2 p-2 text-center border-l-0 text-foreground">
+        <h2>{{ heartbeat.contenido?.voltaje_bateria }}</h2>
+      </div>
+      <div class="border-2 p-2 border-t-0 text-foreground">
+        <h2 class="font-bold text-foreground">Porcentaje Bateria</h2>
+      </div>
+      <div class="border-2 p-2 text-center border-l-0 border-t-0 text-foreground">
+        <h2>{{ heartbeat.contenido?.porcentaje_bateria }}%</h2>
+      </div>
+      <div class="border-2 p-2 border-t-0 text-foreground">
+        <h2 class="font-bold text-foreground">Estado Registro</h2>
+      </div>
+      <div class="border-2 p-2 text-center border-l-0 border-t-0 text-foreground">
+        <h2>{{ heartbeat.contenido?.estado_registro }}</h2>
+      </div>
+      <div class="border-2 p-2 border-t-0 text-foreground">
+        <h2 class="font-bold text-foreground">Nivel Señal</h2>
+      </div>
+      <div class="border-2 p-2 text-center border-l-0 border-t-0 text-foreground">
+        <h2>{{ heartbeat.contenido?.nivel_senal }}</h2>
+      </div>
+      <div class="border-2 p-2 border-t-0 text-foreground">
+        <h2 class="font-bold text-foreground">Tipo Tecnologia Red Movil</h2>
+      </div>
+      <div class="border-2 p-2 text-center border-l-0 border-t-0 text-foreground">
+        <h2>{{ heartbeat.contenido?.tipo_tecnologia_red_movil }}</h2>
+      </div>
+    </div>
+  </section>
+  <section *ngIf="pole?.state !== 'disconnected'" class="rounded-lg bg-background px-8 py-8">
+    <div class="grid mx-auto">
+      <div class="text-center font-bold font-montserrat text-foreground text-lg pt-2 pb-4">
+        <h1>Acciones Remotas al Poste</h1>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 mt-2 gap-3 mx-auto">
+        <button
+          pButton
+          class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-semibold font-montserrat leading-6 text-primary-foreground shadow"
+          (click)="handleSolicitud('llamada_prueba')">
+          Llamada de Prueba
+        </button>
+        <button
+          pButton
+          class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-semibold font-montserrat leading-6 text-primary-foreground shadow"
+          (click)="handleSolicitud('reinicio_modem')">
+          Reinicio de Modem
+        </button>
+        <button
+          pButton
+          class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-semibold font-montserrat leading-6 text-primary-foreground shadow"
+          (click)="handleSolicitud('reinicio_dispositivo')">
+          Reinicio de Dispositivo
+        </button>
+        <button
+          pButton
+          class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-semibold font-montserrat leading-6 text-primary-foreground shadow"
+          (click)="handleSolicitud('peticion_imagen')">
+          Petición de Imagen
+        </button>
+        <button
+          pButton
+          class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-semibold font-montserrat leading-6 text-primary-foreground shadow"
+          (click)="handleSolicitud('solicitud_info_modem')">
+          Solicitud Info del Modem
+        </button>
+        <button
+          pButton
+          class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-semibold font-montserrat leading-6 text-primary-foreground shadow"
+          (click)="handleSolicitud('actualizar')">
+          Actualizar Dispositivo
+        </button>
+      </div>
+    </div>
+  </section>
+</div>

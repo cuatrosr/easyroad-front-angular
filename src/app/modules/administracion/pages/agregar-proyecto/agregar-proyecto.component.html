@@ -1,0 +1,83 @@
+<p-toast></p-toast>
+
+<div class="px-4 py-4 grid grid-cols-1 gap-4">
+  <section class="rounded-lg bg-background px-8 py-8">
+    <div class="flex flex-col gap-2">
+      <div class="inline-block">
+        <h3 class="font-semibold text-foreground font-montserrat">Nuevo Proyecto</h3>
+        <div class="space-x-1 text-xs font-medium text-muted-foreground font-montserrat">
+          <span>Tableros - Proyectos</span>
+        </div>
+      </div>
+      <p class="text-foreground text-justify font-montserrat">
+        Le invitamos a agregar nuevos proyectos de concesión para ampliar su red de postes. Cada proyecto es una
+        oportunidad para fortalecer su infraestructura y mejorar sus servicios.
+      </p>
+      <section class="rounded-lg h-full w-full grid bg-background pt-4">
+        <div
+          class="rounded-lg bg-background text-xs grid grid-cols-1 gap-4 lg:m-4 lg:gap-4 items-center justify-center lg:grid-cols-2 md:mx-4">
+          <div class="flex flex-col items-center w-full">
+            <div class="flex items-center w-full">
+              <h3 class="font-bold text-foreground">Información Basica</h3>
+              <div class="flex-grow"></div>
+              <button
+                pButton
+                label="Guardar"
+                icon="pi pi-check"
+                class="flex-none rounded-md bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground"
+                (click)="handleSubmit()"></button>
+            </div>
+            <div class="border-t border-muted-foreground mt-2 w-full">
+              <form [formGroup]="form">
+                <div class="relative mt-4 h-1/2">
+                  <span class="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none"
+                    ><svg-icon src="assets/icons/heroicons/outline/user.svg" [svgClass]="'h-6 w-6 mr-2'"></svg-icon
+                  ></span>
+                  <input
+                    type="text"
+                    id="name"
+                    [ngClass]="{ 'is__invalid-input': submitted && f['name'].errors }"
+                    class="peer block pl-10 pr-6 py-2 rounded-lg border border-gray-300"
+                    placeholder="Nombre"
+                    formControlName="name" />
+                </div>
+                <div class="relative mt-4 h-1/2">
+                  <span class="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none"
+                    ><svg-icon
+                      src="assets/icons/heroicons/outline/information-circle.svg"
+                      [svgClass]="'h-6 w-6 mr-2'"></svg-icon
+                  ></span>
+                  <input
+                    type="text"
+                    id="description"
+                    [ngClass]="{ 'is__invalid-input': submitted && f['description'].errors }"
+                    class="peer block pl-10 pr-6 py-2 rounded-lg border border-gray-300"
+                    placeholder="Descripción"
+                    formControlName="description" />
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="card flex flex-col items-center">
+            <p-fileUpload
+              name="demo[]"
+              [multiple]="false"
+              accept="image/*"
+              (onSelect)="handleImageChange($event)"
+              chooseLabel="Nueva Imagen"
+              showUploadButton="false"
+              showCancelButton="false"
+              class="w-full h-full"
+              maxFileSize="1000000">
+              <ng-template pTemplate="content">
+                <ul *ngIf="uploadedFiles.length">
+                  <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
+                </ul>
+              </ng-template>
+            </p-fileUpload>
+          </div>
+        </div>
+      </section>
+    </div>
+  </section>
+</div>

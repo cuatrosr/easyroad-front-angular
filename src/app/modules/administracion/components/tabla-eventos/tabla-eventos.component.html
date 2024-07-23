@@ -1,0 +1,79 @@
+<p-toast></p-toast>
+<div class="rounded-lg bg-background px-8 py-8">
+  <div class="mb-4 flex items-center justify-between">
+    <div class="flex-col items-center">
+      <h2 class="text-xl font-bold text-foreground">Registro de eventos</h2>
+    </div>
+  </div>
+  <p-table
+    #dt1
+    [value]="events"
+    dataKey="_id"
+    [rows]="10"
+    [rowsPerPageOptions]="[10, 25, 50]"
+    [loading]="loading"
+    [scrollable]="true"
+    [paginator]="true"
+    [globalFilterFields]="['_id', 'fecha', 'serial', 'tipo_evento', 'estado_evento']"
+    [tableStyle]="{ 'min-width': '60rem' }">
+    <ng-template pTemplate="caption">
+      <div class="flex gap-2">
+        <p-button
+          label="Limpiar Filtros"
+          icon="pi pi-filter-slash"
+          (click)="clear(dt1)"
+          onkeypress="handleKeyPress($event)"
+          [text]="true"
+          class="text-xs bg-[#e10a17] p-1 lg:p-2 text-white rounded-md lg:mt-3 md:mt-3 w-auto text-center"
+          [style]="{ 'font-family': 'Montserrat-Bold' }" />
+        <span class="p-input-icon-left ml-auto">
+          <input
+            pInputText
+            type="text"
+            [(ngModel)]="searchValue"
+            (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
+            placeholder="Buscar"
+            class="w-36 lg:w-80 lg:text-sm" />
+        </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header" class="rounded-lg">
+      <tr>
+        <th scope="col" [pSortableColumn]="'fecha'" style="min-width: 10rem">
+          <div class="flex justify-center">
+            <span class="aling-th-table">Fechas</span>
+            <p-sortIcon field="fecha" class="content-center justify-end"></p-sortIcon>
+          </div>
+        </th>
+        <th scope="col" style="min-width: 5rem">
+          <div class="flex justify-center">
+            <span class="aling-th-table">Seriales</span>
+          </div>
+        </th>
+        <th scope="col" style="min-width: 5rem">
+          <div class="flex justify-center">
+            <span class="aling-th-table">Tipo de Evento</span>
+          </div>
+        </th>
+        <th scope="col" style="min-width: 5rem">
+          <div class="flex justify-center">
+            <span class="aling-th-table">Estado de Evento</span>
+          </div>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-event class="tabla-events">
+      <tr class="border-b">
+        <td class="text-center">{{ event.fecha }}</td>
+        <td class="text-center">{{ event.serial }}</td>
+        <td class="text-center">{{ event.tipo_evento }}</td>
+        <td class="text-center">{{ event.estado_evento }}</td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="7">Proyecto no encontrado</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

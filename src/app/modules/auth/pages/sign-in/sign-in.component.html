@@ -1,0 +1,45 @@
+<!-- login form -->
+<form [formGroup]="form" (ngSubmit)="iniciarSesion()">
+  <div class=" bg-background  shadow-lg p-12 rounded-lg card ">
+    <div class="card-header">
+      <img src="assets/images/logo.png" alt="FTSTecnologia" srcset="">
+    </div>
+    <div class="card-body">
+      <h5 class="card-title text-center">Portal de administracion de reportes</h5>
+    </div>
+    <div class="relative mt-6 h-1/2">
+      <span class="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none"><svg-icon
+          src="assets/icons/heroicons/outline/user.svg" [svgClass]="'h-6 w-6 mr-2'"></svg-icon></span>
+      <input type="text" id="usuario" [ngClass]="{ 'is__invalid-input': submitted && f['usuario'].errors }"
+        class="peer block pl-10 pr-6 py-2 rounded-lg border border-gray-300" placeholder="Usuario"
+        formControlName="usuario" />
+    </div>
+    <div *ngIf="submitted && f['usuario'].errors" class="is__invalid-error">
+      <div *ngIf="f['usuario'].errors['required']">Usuario requerido</div>
+    </div>
+
+    <div class="relative input_group">
+      <span class="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none"><svg-icon
+          src="assets/icons/heroicons/outline/lock-closed.svg" [svgClass]="'h-6 w-6 mr-2'"></svg-icon></span>
+      <input [type]="passwordTextType ? 'text' : 'password'" id="password"
+        [ngClass]="{ 'is__invalid-input': submitted && f['contrasena'].errors }"
+        class="peer block pl-10 pr-4 py-2 rounded-lg border border-gray-300" placeholder="Contraseña"
+        formControlName="contrasena" />
+      <span class="absolute top-2 right-2 cursor-pointer text-muted-foreground" (click)="togglePasswordTextType()">
+        <svg-icon [src]="
+              !passwordTextType
+                ? 'assets/icons/heroicons/outline/eye-off.svg'
+                : 'assets/icons/heroicons/outline/eye.svg'
+            " [svgClass]="'h-5 w-5'">
+        </svg-icon>
+      </span>
+    </div>
+    <div *ngIf="submitted && f['contrasena'].errors" class="is__invalid-error">
+      <div *ngIf="f['contrasena'].errors['required']">Contraseña requerida</div>
+    </div>
+
+    <app-button full impact="bold" tone="primary" shape="rounded" size="medium" (click)="iniciarSesion()" class="m-4">INICIAR SESION</app-button>
+    <app-button full impact="bold" tone="primary" shape="rounded" size="medium" class="m-4">LEER HUELLA</app-button>
+  </div>
+</form>
+<app-button full impact="bold" tone="primary" shape="rounded" size="medium" (click)="redirigir()" class="m-4">Redirigir INICIO</app-button>

@@ -1,0 +1,20 @@
+::ng-deep .p-card-header {
+  font-size: 1.5rem; /* text-2xl */
+  font-weight: 700; /* font-bold */
+  color: hsl(var(--foreground)); /* text-foreground */
+  --tw-text-opacity: 1;
+
+  @media (min-width: 768px) {
+    font-size: 2.25rem; /* md:text-4xl */
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 3.75rem; /* lg:text-6xl */
+  }
+}
+
+.custom-p-card {
+  box-shadow: none;
+  height: 100%;
+  background-color: hsl(var(--background)); /* bg-background */
+}
