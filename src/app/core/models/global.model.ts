@@ -28,3 +28,11 @@ export interface Event {
   estado_evento: string;
   tipo_notificacion: string;
 }
+export interface Notification {
+  routerLink: string;
+  title: string;
+  message: string;
+}
+export interface NotificationState {
+  notifications: Notification[];
+}

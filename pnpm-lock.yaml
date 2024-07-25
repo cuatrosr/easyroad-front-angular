@@ -35,6 +35,9 @@ importers:
       '@fontsource/montserrat':
         specifier: ^5.0.18
         version: 5.0.18
+      '@ngrx/store':
+        specifier: ^18.0.1
+        version: 18.0.1(@angular/core@17.3.11(rxjs@7.4.0)(zone.js@0.14.7))(rxjs@7.4.0)
       '@tailwindcss/aspect-ratio':
         specifier: ^0.4.0
         version: 0.4.2(tailwindcss@3.4.4)
@@ -56,6 +59,9 @@ importers:
       ng-apexcharts:
         specifier: ^1.7.1
         version: 1.11.0(@angular/common@17.3.11(@angular/core@17.3.11(rxjs@7.4.0)(zone.js@0.14.7))(rxjs@7.4.0))(@angular/core@17.3.11(rxjs@7.4.0)(zone.js@0.14.7))(apexcharts@3.49.2)(rxjs@7.4.0)
+      ngrx-store-localstorage:
+        specifier: ^18.0.0
+        version: 18.0.0(@angular/common@17.3.11(@angular/core@17.3.11(rxjs@7.4.0)(zone.js@0.14.7))(rxjs@7.4.0))(@angular/core@17.3.11(rxjs@7.4.0)(zone.js@0.14.7))(@ngrx/store@18.0.1(@angular/core@17.3.11(rxjs@7.4.0)(zone.js@0.14.7))(rxjs@7.4.0))
       ngx-socket-io:
         specifier: ^4.7.0
         version: 4.7.0(@angular/common@17.3.11(@angular/core@17.3.11(rxjs@7.4.0)(zone.js@0.14.7))(rxjs@7.4.0))(@angular/core@17.3.11(rxjs@7.4.0)(zone.js@0.14.7))(rxjs@7.4.0)
@@ -1260,6 +1266,12 @@ packages:
     resolution: {integrity: sha512-/gKJun8NNiWGZJkGzI/Ragc53cOdcLNdzjLaIa+GEjguQs0ulsurx8WN0jijdK9yPqDvziX995sMRLyLt1uZMQ==}
     engines: {node: '>= 0.4'}
 
+  '@ngrx/store@18.0.1':
+    resolution: {integrity: sha512-TxZiQz06fGSxQ0clYfzkH4NCr6tfa8A7zqzkvvOOK1ZezOHHsk0vZJJtgxQcKUqAQxPpbp5+Z7YR8P/Fuid7GQ==}
+    peerDependencies:
+      '@angular/core': ^18.0.0
+      rxjs: ^6.5.3 || ^7.5.0
+
   '@ngtools/webpack@17.3.8':
     resolution: {integrity: sha512-CjSVVa/9fzMpEDQP01SC4colKCbZwj7vUq0H2bivp8jVsmd21x9Fu0gDBH0Y9NdfAIm4eGZvmiZKMII3vIOaYQ==}
     engines: {node: ^18.13.0 || >=20.9.0, npm: ^6.11.0 || ^7.5.6 || >=8.0.0, yarn: '>= 1.13.0'}
@@ -2211,6 +2223,10 @@ packages:
 
   dedent@0.7.0:
     resolution: {integrity: sha512-Q6fKUPqnAHAyhiUgFU7BUzLiv0kd8saH9al7tnu5Q/okj6dnupxyTgFIBjVzJATdfIAm9NAsvXNzjaKa+bxVyA==}
+
+  deepmerge@4.3.1:
+    resolution: {integrity: sha512-3sUqbMEc77XqpdNO7FRyRog+eW3ph+GYCbj+rK+uYyRMuwsVy0rMiVtPn+QJlKFvWP/1PYpapqYn0Me2knFn+A==}
+    engines: {node: '>=0.10.0'}
 
   default-gateway@6.0.3:
     resolution: {integrity: sha512-fwSOJsbbNzZ/CUFpqFBqYfYNLj1NbMPm8MMCIzHjC83iSJRBEGmDUxU+WP661BaBQImeC2yHwXtz+P/O9o+XEg==}
@@ -3533,6 +3549,13 @@ packages:
       '@angular/core': ^18.0.1
       apexcharts: ^3.49.1
       rxjs: ^6.5.5 || ^7.4.0
+
+  ngrx-store-localstorage@18.0.0:
+    resolution: {integrity: sha512-WoDePvMWiWF9LQHe+dTqbpm8lxoKCPoIvA0/1enIPTmdLQsOpdDKhMSD5YgwuqDusNfEik3QslProTFGyXZwtw==}
+    peerDependencies:
+      '@angular/common': ^18.0.1
+      '@angular/core': ^18.0.1
+      '@ngrx/store': ^18.0.0
 
   ngx-socket-io@4.7.0:
     resolution: {integrity: sha512-2uwc5OWPOXM2EmiTrsMpWKm97gE6K3Zuzo1JeScncWQ3r/VxLQuGismVXtGF4Dv3h1Orvurt3ISiNztqOuL3gQ==}
@@ -6309,6 +6332,12 @@ snapshots:
     dependencies:
       call-bind: 1.0.7
 
+  '@ngrx/store@18.0.1(@angular/core@17.3.11(rxjs@7.4.0)(zone.js@0.14.7))(rxjs@7.4.0)':
+    dependencies:
+      '@angular/core': 17.3.11(rxjs@7.4.0)(zone.js@0.14.7)
+      rxjs: 7.4.0
+      tslib: 2.6.3
+
   '@ngtools/webpack@17.3.8(@angular/compiler-cli@17.3.11(@angular/compiler@17.3.11(@angular/core@17.3.11(rxjs@7.4.0)(zone.js@0.14.7)))(typescript@5.2.2))(typescript@5.2.2)(webpack@5.90.3(esbuild@0.20.1))':
     dependencies:
       '@angular/compiler-cli': 17.3.11(@angular/compiler@17.3.11(@angular/core@17.3.11(rxjs@7.4.0)(zone.js@0.14.7)))(typescript@5.2.2)
@@ -7414,6 +7443,8 @@ snapshots:
       ms: 2.1.2
 
   dedent@0.7.0: {}
+
+  deepmerge@4.3.1: {}
 
   default-gateway@6.0.3:
     dependencies:
@@ -8950,6 +8981,14 @@ snapshots:
       '@angular/core': 17.3.11(rxjs@7.4.0)(zone.js@0.14.7)
       apexcharts: 3.49.2
       rxjs: 7.4.0
+      tslib: 2.6.3
+
+  ngrx-store-localstorage@18.0.0(@angular/common@17.3.11(@angular/core@17.3.11(rxjs@7.4.0)(zone.js@0.14.7))(rxjs@7.4.0))(@angular/core@17.3.11(rxjs@7.4.0)(zone.js@0.14.7))(@ngrx/store@18.0.1(@angular/core@17.3.11(rxjs@7.4.0)(zone.js@0.14.7))(rxjs@7.4.0)):
+    dependencies:
+      '@angular/common': 17.3.11(@angular/core@17.3.11(rxjs@7.4.0)(zone.js@0.14.7))(rxjs@7.4.0)
+      '@angular/core': 17.3.11(rxjs@7.4.0)(zone.js@0.14.7)
+      '@ngrx/store': 18.0.1(@angular/core@17.3.11(rxjs@7.4.0)(zone.js@0.14.7))(rxjs@7.4.0)
+      deepmerge: 4.3.1
       tslib: 2.6.3
 
   ngx-socket-io@4.7.0(@angular/common@17.3.11(@angular/core@17.3.11(rxjs@7.4.0)(zone.js@0.14.7))(rxjs@7.4.0))(@angular/core@17.3.11(rxjs@7.4.0)(zone.js@0.14.7))(rxjs@7.4.0):

@@ -1,0 +1,61 @@
+<div class="relative ml-3">
+  <button (click)="toggleMenu()" class="relative flex text-sm" type="button">
+    <i
+      pBadge
+      *ngIf="notifications.length > 0"
+      value="{{ notifications.length }}"
+      (keypress)="handleKeyPress($event)"
+      class="pi pi-bell text-xl cursor-pointer text-foreground">
+    </i>
+    <i
+      *ngIf="notifications.length === 0"
+      (keypress)="handleKeyPress($event)"
+      class="pi pi-bell text-xl cursor-pointer text-foreground">
+    </i>
+  </button>
+
+  <div
+    [@openClose]="isOpen ? 'open' : 'closed'"
+    class="absolute right-0 z-20 mt-2 w-60 origin-top-right transform bg-background pt-4 pb-2 shadow-custom ring-1 ring-transparent ring-opacity-5 transition focus:outline-none">
+    <div class="flext-row flex items-center px-4 pb-4">
+      <div class="w-10 shrink-0 text-center text-foreground">
+        <i class="pi pi-bell text-xl"></i>
+      </div>
+      <div class="overflow-hidden px-2 text-sm font-semibold text-foreground">
+        <span class="capitalize"> notificaciones </span>
+      </div>
+    </div>
+
+    <div class="border-b border-dashed border-border"></div>
+
+    <div class="max-h-40 overflow-y-auto">
+      <ul class="flex flex-col space-y-2">
+        <li
+          *ngFor="let item of notifications; let i = index"
+          [routerLink]="item.routerLink"
+          class="relative inline-flex cursor-pointer items-center gap-2 px-3 py-2 text-xs font-semibold text-muted-foreground hover:bg-card hover:text-primary">
+          <svg-icon
+            src="./assets/icons/heroicons/outline/exclamation-triangle.svg"
+            [svgClass]="'h-5 w-5 text-primary/50'">
+          </svg-icon>
+          <div class="inline-block">
+            <h3 class="font-semibold text-foreground font-montserrat">{{ item.title }}</h3>
+            <div class="space-x-1 text-xs font-medium text-muted-foreground font-montserrat">
+              <span>{{ item.message }}</span>
+            </div>
+          </div>
+          <button
+            (click)="dismissNotification($event, i)"
+            class="absolute top-1 bottom-1 right-1 text-gray-400 hover:text-gray-600">
+            <i class="pi pi-times"></i>
+          </button>
+        </li>
+        <li
+          *ngIf="notifications.length === 0"
+          class="inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm font-semibold text-muted-foreground">
+          No hay notificaciones
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

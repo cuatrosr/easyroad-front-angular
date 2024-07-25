@@ -1,7 +1,11 @@
-import { RouterModule, Routes } from '@angular/router';
-import { NgModule } from '@angular/core';
-import { SocketIoModule } from 'ngx-socket-io';
+import { localStorageSync } from 'ngrx-store-localstorage';
 import { environment } from 'src/environments/environment';
+import { RouterModule, Routes } from '@angular/router';
+import { SocketIoModule } from 'ngx-socket-io';
+import { ActionReducer, ActionReducerMap, MetaReducer, StoreModule } from '@ngrx/store';
+import { NgModule } from '@angular/core';
+import { notificationReducer } from './core/store/reducer/notification.reducer';
+import { NotificationState } from './core/models/global.model';
 
 const routes: Routes = [
   {
@@ -24,8 +28,22 @@ const routes: Routes = [
   { path: '**', redirectTo: 'errors/404' },
 ];
 
+const reducers: ActionReducerMap<{ notifications: NotificationState }> = {
+  notifications: notificationReducer,
+};
+
+export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
+  return localStorageSync({ keys: ['notifications'], rehydrate: true })(reducer);
+}
+
+const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
+
 @NgModule({
-  imports: [RouterModule.forRoot(routes), SocketIoModule.forRoot({ url: environment.wsUrl })],
+  imports: [
+    RouterModule.forRoot(routes),
+    SocketIoModule.forRoot({ url: environment.wsUrl }),
+    StoreModule.forRoot(reducers, { metaReducers }),
+  ],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

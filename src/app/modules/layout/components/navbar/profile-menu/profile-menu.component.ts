@@ -3,13 +3,12 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 import { ToastService } from 'src/app/core/services/toast-service.service';
 import { ThemeService } from '../../../../../core/services/theme.service';
 import { AngularSvgIconModule } from 'angular-svg-icon';
+import { CommonModule, NgClass } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { AvatarModule } from 'primeng/avatar';
 import { ButtonModule } from 'primeng/button';
 import { RouterLink } from '@angular/router';
 import { ToastModule } from 'primeng/toast';
-import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-profile-menu',

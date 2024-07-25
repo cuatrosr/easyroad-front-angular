@@ -1,3 +1,4 @@
+import { NotificationBellComponent } from '../notification-bell/notification-bell.component';
 import { NavbarMobileComponent } from './navbar-mobile/navbar-mobilecomponent';
 import { ProfileMenuComponent } from './profile-menu/profile-menu.component';
 import { NavbarMenuComponent } from './navbar-menu/navbar-menu.component';
@@ -11,7 +12,14 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
   standalone: true,
-  imports: [AngularSvgIconModule, NavbarMenuComponent, BreadcrumbComponent, ProfileMenuComponent, NavbarMobileComponent],
+  imports: [
+    NavbarMenuComponent,
+    BreadcrumbComponent,
+    ProfileMenuComponent,
+    AngularSvgIconModule,
+    NavbarMobileComponent,
+    NotificationBellComponent,
+  ],
 })
 export class NavbarComponent implements OnInit {
   constructor(private menuService: MenuService) {}

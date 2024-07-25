@@ -1,6 +1,8 @@
+import { notificationReducer } from 'src/app/core/store/reducer/notification.reducer';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from './layout.component';
 import { NgModule } from '@angular/core';
+import { StoreModule } from '@ngrx/store';
 
 const routes: Routes = [
   {
@@ -18,7 +20,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forChild(routes), StoreModule.forFeature('notifications', notificationReducer)],
   exports: [RouterModule],
 })
 export class LayoutRoutingModule {}

@@ -1,7 +1,7 @@
 import { BreadcrumbService } from 'src/app/modules/layout/services/breadcrumb.service';
 import { LogoComponent } from 'src/app/shared/components/logo/logo.component';
 import { AdministracionService } from '../../services/administracion.service';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Socket, SocketIoModule } from 'ngx-socket-io';
 import { ButtonModule } from 'primeng/button';
@@ -19,7 +19,7 @@ import { Subscription } from 'rxjs';
   imports: [LogoComponent, NgIf, SocketIoModule, ButtonModule, ToastModule],
   providers: [MessageService, AdministracionService],
 })
-export class VerPosteComponent implements OnInit {
+export class VerPosteComponent implements OnInit, OnDestroy {
   administracionService = inject(AdministracionService);
   messageService = inject(MessageService);
   socketSubscription!: Subscription;
