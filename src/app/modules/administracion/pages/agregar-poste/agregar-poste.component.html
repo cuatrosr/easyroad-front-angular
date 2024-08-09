@@ -1,5 +1,9 @@
 <p-toast></p-toast>
 <div class="px-4 py-4 grid grid-cols-1 gap-4">
+  <div class="lg:hidden">
+    <app-breadcrumb></app-breadcrumb>
+  </div>
+
   <section class="rounded-lg bg-background px-8 py-8">
     <div class="flex flex-col gap-2">
       <div class="inline-block">
@@ -29,9 +33,11 @@
             <div class="border-t border-muted-foreground mt-2 w-full">
               <form [formGroup]="form">
                 <div class="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 gap-1 lg:gap-3 mx-auto w-full">
-                  <div class="relative mt-4 h-1/2">
+                  <div class="relative mt-4 h-1/2 flex items-center">
                     <span class="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none"
-                      ><svg-icon src="assets/icons/heroicons/outline/user.svg" [svgClass]="'h-6 w-6 mr-2'"></svg-icon
+                      ><svg-icon
+                        src="assets/icons/heroicons/outline/address-book.svg"
+                        [svgClass]="'h-6 w-6 mr-2'"></svg-icon
                     ></span>
                     <input
                       type="text"
@@ -41,9 +47,9 @@
                       placeholder="Nombre"
                       formControlName="name" />
                   </div>
-                  <div class="relative mt-4 h-1/2">
+                  <div class="relative mt-4 h-1/2 flex items-center">
                     <span class="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none"
-                      ><svg-icon src="assets/icons/heroicons/outline/user.svg" [svgClass]="'h-6 w-6 mr-2'"></svg-icon
+                      ><svg-icon src="assets/icons/heroicons/outline/barcode.svg" [svgClass]="'h-6 w-6 mr-2'"></svg-icon
                     ></span>
                     <input
                       type="text"
@@ -53,10 +59,10 @@
                       placeholder="Serial"
                       formControlName="serial" />
                   </div>
-                  <div class="relative mt-4 h-1/2">
+                  <div class="relative mt-4 h-1/2 flex items-center">
                     <span class="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none"
                       ><svg-icon
-                        src="assets/icons/heroicons/outline/information-circle.svg"
+                        src="assets/icons/heroicons/outline/warehouse.svg"
                         [svgClass]="'h-6 w-6 mr-2'"></svg-icon
                     ></span>
                     <input
@@ -67,7 +73,7 @@
                       placeholder="Fabricante"
                       formControlName="fabricante" />
                   </div>
-                  <div class="relative mt-4 h-1/2">
+                  <div class="relative mt-4 h-1/2 flex items-center">
                     <span class="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none"
                       ><svg-icon
                         src="assets/icons/heroicons/outline/information-circle.svg"

@@ -1,4 +1,3 @@
-import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 import { NavigationEnd, Router, RouterOutlet, Event } from '@angular/router';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -10,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.scss'],
   standalone: true,
-  imports: [SidebarComponent, NavbarComponent, BreadcrumbComponent, RouterOutlet, FooterComponent],
+  imports: [SidebarComponent, NavbarComponent, RouterOutlet, FooterComponent],
 })
 export class LayoutComponent implements OnInit {
   private mainContent: HTMLElement | null = null;

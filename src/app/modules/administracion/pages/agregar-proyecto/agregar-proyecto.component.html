@@ -1,15 +1,18 @@
 <p-toast></p-toast>
-
 <div class="px-4 py-4 grid grid-cols-1 gap-4">
+  <div class="lg:hidden">
+    <app-breadcrumb></app-breadcrumb>
+  </div>
+
   <section class="rounded-lg bg-background px-8 py-8">
     <div class="flex flex-col gap-2">
       <div class="inline-block">
-        <h3 class="font-semibold text-foreground font-montserrat">Nuevo Proyecto</h3>
-        <div class="space-x-1 text-xs font-medium text-muted-foreground font-montserrat">
+        <h3 class="font-semibold text-base text-foreground font-montserrat">Nuevo Proyecto</h3>
+        <div class="space-x-1 text-sm font-medium text-muted-foreground font-montserrat">
           <span>Tableros - Proyectos</span>
         </div>
       </div>
-      <p class="text-foreground text-justify font-montserrat">
+      <p class="text-foreground text-sm text-justify font-montserrat">
         Le invitamos a agregar nuevos proyectos de concesión para ampliar su red de postes. Cada proyecto es una
         oportunidad para fortalecer su infraestructura y mejorar sus servicios.
       </p>
@@ -18,7 +21,7 @@
           class="rounded-lg bg-background text-xs grid grid-cols-1 gap-4 lg:m-4 lg:gap-4 items-center justify-center lg:grid-cols-2 md:mx-4">
           <div class="flex flex-col items-center w-full">
             <div class="flex items-center w-full">
-              <h3 class="font-bold text-foreground">Información Basica</h3>
+              <h3 class="font-bold text-sm text-foreground">Información Basica</h3>
               <div class="flex-grow"></div>
               <button
                 pButton

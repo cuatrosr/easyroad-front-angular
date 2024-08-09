@@ -1,8 +1,10 @@
+import { BreadcrumbComponent } from 'src/app/modules/layout/components/breadcrumb/breadcrumb.component';
 import { TablaProyectosComponent } from '../../components/tabla-proyectos/tabla-proyectos.component';
 import { BreadcrumbService } from 'src/app/modules/layout/services/breadcrumb.service';
 import { LogoComponent } from 'src/app/shared/components/logo/logo.component';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { Component, OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 
 @Component({
@@ -10,8 +12,8 @@ import { ToastModule } from 'primeng/toast';
   standalone: true,
   templateUrl: './proyectos.component.html',
   styleUrl: './proyectos.component.scss',
-  imports: [LogoComponent, ToastModule, TablaProyectosComponent],
-  providers: [MessageService],
+  imports: [LogoComponent, ToastModule, ConfirmDialogModule, BreadcrumbComponent, TablaProyectosComponent],
+  providers: [MessageService, ConfirmationService],
 })
 export class ProyectosComponent implements OnInit {
   constructor(private breadcrumbService: BreadcrumbService) {}

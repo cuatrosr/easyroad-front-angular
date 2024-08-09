@@ -1,3 +1,4 @@
+import { BreadcrumbComponent } from 'src/app/modules/layout/components/breadcrumb/breadcrumb.component';
 import { TablaEventosComponent } from '../../components/tabla-eventos/tabla-eventos.component';
 import { TablaAlertasComponent } from '../../components/tabla-alertas/tabla-alertas.component';
 import { TablaPostesComponent } from '../../components/tabla-postes/tabla-postes.component';
@@ -21,6 +22,7 @@ import { MessageService } from 'primeng/api';
     CommonModule,
     LogoComponent,
     GridCardComponent,
+    BreadcrumbComponent,
     TablaPostesComponent,
     TablaEventosComponent,
     TablaAlertasComponent,

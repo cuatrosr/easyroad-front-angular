@@ -1,3 +1,4 @@
+import { BreadcrumbComponent } from 'src/app/modules/layout/components/breadcrumb/breadcrumb.component';
 import { BreadcrumbService } from 'src/app/modules/layout/services/breadcrumb.service';
 import { LogoComponent } from 'src/app/shared/components/logo/logo.component';
 import { AdministracionService } from '../../services/administracion.service';
@@ -16,7 +17,7 @@ import { Subscription } from 'rxjs';
   standalone: true,
   templateUrl: './ver-poste.component.html',
   styleUrl: './ver-poste.component.scss',
-  imports: [LogoComponent, NgIf, SocketIoModule, ButtonModule, ToastModule],
+  imports: [LogoComponent, NgIf, SocketIoModule, BreadcrumbComponent, ButtonModule, ToastModule],
   providers: [MessageService, AdministracionService],
 })
 export class VerPosteComponent implements OnInit, OnDestroy {

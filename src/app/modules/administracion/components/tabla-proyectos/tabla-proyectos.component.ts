@@ -1,6 +1,8 @@
 import { AdministracionService } from '../../services/administracion.service';
 import { ToastService } from 'src/app/core/services/toast-service.service';
 import { Component, OnInit, inject, ViewChild } from '@angular/core';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { Project } from 'src/app/core/models/global.model';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { SplitButtonModule } from 'primeng/splitbutton';
@@ -9,10 +11,10 @@ import { TableModule, Table } from 'primeng/table';
 import { DropdownModule } from 'primeng/dropdown';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
-import { MessageService } from 'primeng/api';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgFor } from '@angular/common';
+import { RippleModule } from 'primeng/ripple';
 
 @Component({
   selector: 'app-tabla-proyectos',
@@ -21,11 +23,14 @@ import { NgFor } from '@angular/common';
   standalone: true,
   imports: [
     AngularSvgIconModule,
+    ConfirmDialogModule,
     SplitButtonModule,
     MultiSelectModule,
     DropdownModule,
     ButtonModule,
+    RippleModule,
     DialogModule,
+    ButtonModule,
     FormsModule,
     TableModule,
     NgFor,
@@ -40,6 +45,7 @@ export class TablaProyectosComponent implements OnInit {
     { label: 'Eliminar', value: 'eliminar' },
   ];
   router = inject(Router);
+  confirmationService = inject(ConfirmationService);
   messageService = inject(MessageService);
   administracionService = inject(AdministracionService);
   loading: boolean = false;
@@ -77,14 +83,27 @@ export class TablaProyectosComponent implements OnInit {
   }
 
   handleDelete(id: number): void {
-    this.administracionService.deleteProject(id).subscribe({
-      next: () => {
-        this.getProjects();
-        this.handleSuccess('Proyecto eliminado correctamente');
+    this.confirmationService.confirm({
+      header: '¿Está seguro de que desea eliminar este proyecto?',
+      message: 'Una vez eliminado, no podrá acceder al proyecto nuevamente.',
+      icon: 'pi pi-info-circle',
+      acceptButtonStyleClass: 'p-button-danger p-button-text',
+      rejectButtonStyleClass: 'p-button-text p-button-text',
+      acceptIcon: 'none',
+      rejectIcon: 'none',
+
+      accept: () => {
+        this.administracionService.deleteProject(id).subscribe({
+          next: () => {
+            this.getProjects();
+            this.handleSuccess('Proyecto eliminado correctamente');
+          },
+          error: (error: any) => {
+            this.handleError(error);
+          },
+        });
       },
-      error: (error: any) => {
-        this.handleError(error);
-      },
+      reject: () => {},
     });
   }
 
@@ -111,8 +130,8 @@ export class TablaProyectosComponent implements OnInit {
     if (action === 'ver') {
       this.datosProyecto('administracion/ver_proyecto', this.projectId);
     } else if (action === 'eliminar') {
-      this.handleDelete(this.projectId);
       this.selectedAction = null;
+      this.handleDelete(this.projectId);
     }
   }
 }

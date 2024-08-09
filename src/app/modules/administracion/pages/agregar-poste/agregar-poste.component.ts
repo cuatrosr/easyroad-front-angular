@@ -1,15 +1,16 @@
+import { BreadcrumbComponent } from 'src/app/modules/layout/components/breadcrumb/breadcrumb.component';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BreadcrumbService } from 'src/app/modules/layout/services/breadcrumb.service';
 import { LogoComponent } from 'src/app/shared/components/logo/logo.component';
 import { AdministracionService } from '../../services/administracion.service';
 import { Project } from 'src/app/core/models/global.model';
+import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { HttpClientModule } from '@angular/common/http';
 import { FileUploadModule } from 'primeng/fileupload';
 import { CommonModule, NgIf } from '@angular/common';
 import { SkeletonModule } from 'primeng/skeleton';
-import { Component, inject, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
@@ -21,6 +22,7 @@ import { ToastModule } from 'primeng/toast';
   styleUrl: './agregar-poste.component.scss',
   imports: [
     AngularSvgIconModule,
+    BreadcrumbComponent,
     ReactiveFormsModule,
     FileUploadModule,
     SkeletonModule,

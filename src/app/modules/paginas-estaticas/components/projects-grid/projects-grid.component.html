@@ -1,12 +1,12 @@
 <section class="rounded-lg bg-background px-8 py-8">
   <div class="flex flex-col gap-2">
     <div class="inline-block">
-      <h3 class="font-semibold text-foreground font-montserrat">Proyectos</h3>
-      <div class="space-x-1 text-xs font-medium text-muted-foreground font-montserrat">
+      <h3 class="font-semibold text-base text-foreground font-montserrat">Proyectos</h3>
+      <div class="space-x-1 text-sm font-medium text-muted-foreground font-montserrat">
         <span>Tableros - Proyectos</span>
       </div>
     </div>
-    <p class="text-muted-foreground text-justify font-montserrat">
+    <p class="text-muted-foreground text-sm text-justify font-montserrat">
       En este contexto, le invitamos a explorar el mundo de la creación de proyectos personalizados, donde cada
       concesión representa una oportunidad única para administrar eficientemente la infraestructura de postes en su
       jurisdicción. Le damos la más cordial bienvenida al mundo de la gestión de concesiones de infraestructura, donde
@@ -15,7 +15,7 @@
     <section class="rounded-lg h-full w-full grid bg-background pt-4">
       <ng-container *ngIf="!loading && !error && projects.length !== 0; else emptyOrLoading">
         <div
-          class="rounded-lg bg-background text-xs grid grid-cols-2 gap-2 mx-auto lg:m-4 lg:gap-4 items-center justify-center lg:grid-cols-3 md:mx-4">
+          class="rounded-lg bg-background text-xs grid grid-cols-1 w-5/6 h-full gap-4 mx-auto lg:m-4 lg:gap-4 md:w-9/12 lg:w-full items-center justify-center lg:grid-cols-3">
           <ng-container *ngFor="let project of projects">
             <app-project-card [project]="project"></app-project-card>
           </ng-container>

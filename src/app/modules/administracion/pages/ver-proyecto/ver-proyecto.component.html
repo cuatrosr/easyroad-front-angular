@@ -1,8 +1,14 @@
 <div class="px-4 py-4 grid grid-cols-1 lg:grid-cols-2 gap-4">
-  <section class="rounded-lg h-full w-full grid bg-background pt-4">
+  <div class="lg:hidden">
+    <app-breadcrumb></app-breadcrumb>
+  </div>
+
+  <section class="rounded-lg h-96 w-full grid bg-background">
     <div class="rounded-lg bg-background text-xs grid grid-cols-1 mx-auto items-center justify-center">
       <div class="flex flex-col border shadow-lg rounded-lg bg-background h-fit w-[20rem]">
-        <div [ngStyle]="{ 'background-image': 'url(' + project.image + ')' }" class="h-[13rem] bg-cover"></div>
+        <div
+          [ngStyle]="{ 'background-image': 'url(' + project.image + ')' }"
+          class="h-52 bg-cover bg-center rounded-t-lg"></div>
         <div class="inline-block px-4 py-4">
           <h3 class="font-semibold text-foreground font-montserrat">{{ project.name }}</h3>
           <div class="space-x-1 text-xs font-medium text-muted-foreground font-montserrat">

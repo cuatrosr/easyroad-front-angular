@@ -1,3 +1,4 @@
+import { BreadcrumbComponent } from 'src/app/modules/layout/components/breadcrumb/breadcrumb.component';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BreadcrumbService } from 'src/app/modules/layout/services/breadcrumb.service';
 import { LogoComponent } from 'src/app/shared/components/logo/logo.component';
@@ -19,16 +20,17 @@ import { Router } from '@angular/router';
   templateUrl: './agregar-proyecto.component.html',
   styleUrl: './agregar-proyecto.component.scss',
   imports: [
+    NgIf,
+    ToastModule,
+    FormsModule,
+    ButtonModule,
+    CommonModule,
     LogoComponent,
     SkeletonModule,
     FileUploadModule,
-    CommonModule,
     ReactiveFormsModule,
-    ButtonModule,
-    FormsModule,
-    NgIf,
+    BreadcrumbComponent,
     AngularSvgIconModule,
-    ToastModule,
   ],
   providers: [MessageService, AdministracionService, HttpClientModule],
 })
@@ -53,7 +55,7 @@ export class AgregarProyectosComponent implements OnInit {
     });
     this.breadcrumbService.setBreadcrumbs([
       { label: 'Gestion de Proyectos', icon: 'pi pi-chart-line', routerLink: '/administracion/proyectos' },
-      {label: 'Agregar Proyecto', icon: 'pi pi-plus', routerLink: '/administracion/agregar_proyecto'}
+      { label: 'Agregar Proyecto', icon: 'pi pi-plus', routerLink: '/administracion/agregar_proyecto' },
     ]);
     this.initForm();
   }
