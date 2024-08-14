@@ -26,7 +26,7 @@
         <app-navbar-menu></app-navbar-menu>
       </div> -->
 
-      <div class="card hidden lg:flex justify-content-center">
+      <div *ngIf="shouldShowCard()" class="card hidden lg:flex justify-content-center">
         <app-breadcrumb></app-breadcrumb>
       </div>
 
