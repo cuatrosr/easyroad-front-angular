@@ -4,6 +4,7 @@ import { Component, inject, ViewChild, Input } from '@angular/core';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { AngularSvgIconModule } from 'angular-svg-icon';
+import { Pole } from 'src/app/core/models/global.model';
 import { TableModule, Table } from 'primeng/table';
 import { DropdownModule } from 'primeng/dropdown';
 import { ButtonModule } from 'primeng/button';
@@ -46,7 +47,7 @@ export class TablaPostesComponent {
   administracionService = inject(AdministracionService);
   loading: boolean = false;
   searchValue: string | undefined;
-  poleSerial!: number;
+  poleSerial!: string;
   selectedAction: any;
 
   clear(table: Table) {
@@ -80,7 +81,7 @@ export class TablaPostesComponent {
     this.messageService.add({ severity: 'error', summary: 'Error', detail: errorMessage });
   }
 
-  datosPoste(pagina: string, id: number) {
+  datosPoste(pagina: string, id: string) {
     this.router.navigate([pagina, id]);
   }
 
@@ -88,12 +89,12 @@ export class TablaPostesComponent {
     this.router.navigate([pagina]);
   }
 
-  onActionClick(pole: { serial: number }, action: string) {
+  onActionClick(pole: Pole, action: string) {
     this.poleSerial = pole.serial;
     if (action === 'ver') {
       this.datosPoste('administracion/ver_poste', this.poleSerial);
     } else if (action === 'eliminar') {
-      this.handleDelete(this.poleSerial);
+      this.handleDelete(pole._id);
     }
   }
 }
