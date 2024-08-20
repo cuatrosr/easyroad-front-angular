@@ -33,6 +33,6 @@
   </div>
 
   <div class="col-span-1 lg:col-span-2">
-    <app-tabla-postes [poles]="poles" [projectId]="projectId"></app-tabla-postes>
+    <app-tabla-postes [poles]="poles" (refreshPoles)="getPoles()" [projectId]="projectId"></app-tabla-postes>
   </div>
 </div>

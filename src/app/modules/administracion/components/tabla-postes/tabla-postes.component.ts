@@ -1,6 +1,6 @@
 import { AdministracionService } from '../../services/administracion.service';
 import { ToastService } from 'src/app/core/services/toast-service.service';
-import { Component, inject, ViewChild, Input } from '@angular/core';
+import { Component, inject, ViewChild, Input, EventEmitter, Output } from '@angular/core';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { AngularSvgIconModule } from 'angular-svg-icon';
@@ -35,6 +35,7 @@ import { NgFor } from '@angular/common';
   providers: [ToastService, AdministracionService],
 })
 export class TablaPostesComponent {
+  @Output() refreshPoles = new EventEmitter<void>();
   @ViewChild('dt1') dt1!: Table;
   @Input() poles: any[] = [];
   @Input() projectId: string = '';
@@ -61,9 +62,14 @@ export class TablaPostesComponent {
     }
   }
 
+  triggerRefreshPoles() {
+    this.refreshPoles.emit();
+  }
+
   handleDelete(id: number): void {
     this.administracionService.deletePole(id).subscribe({
       next: () => {
+        this.triggerRefreshPoles();
         this.handleSuccess('Poste eliminado correctamente');
       },
       error: (error: any) => {
@@ -94,6 +100,7 @@ export class TablaPostesComponent {
     if (action === 'ver') {
       this.datosPoste('administracion/ver_poste', this.poleSerial);
     } else if (action === 'eliminar') {
+      this.selectedAction = null;
       this.handleDelete(pole._id);
     }
   }
