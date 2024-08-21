@@ -123,6 +123,7 @@ export class VerProyectoComponent implements OnInit {
     this.administracionService.getAlerts(this.poles).subscribe({
       next: (data: Event[]) => {
         this.alerts = data;
+        console.log(data);
         this.loading = false;
       },
       error: (error) => {

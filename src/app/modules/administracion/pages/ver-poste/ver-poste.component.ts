@@ -83,7 +83,6 @@ export class VerPosteComponent implements OnInit, OnDestroy {
           {
             label: 'Detalles Poste',
             icon: 'pi pi-caret-down',
-            routerLink: `/administracion/gestion-proyectos/ver_poste/${this.poleSerial}`,
           },
         ]);
       },
