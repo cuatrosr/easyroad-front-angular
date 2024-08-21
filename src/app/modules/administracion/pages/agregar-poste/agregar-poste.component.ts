@@ -58,7 +58,7 @@ export class AgregarPosteComponent implements OnInit {
     this.initForm();
     this.breadcrumbService.setHomeBreadcrumb({
       icon: 'pi pi-cog',
-      routerLink: '/administracion/proyectos',
+      routerLink: '/administracion/gestion-proyectos',
     });
   }
 
@@ -82,12 +82,12 @@ export class AgregarPosteComponent implements OnInit {
           {
             label: this.project.name,
             icon: 'pi pi-file-check',
-            routerLink: `/administracion/ver_proyecto/${this.projectId}`,
+            routerLink: `/administracion/gestion-proyectos/ver_proyecto/${this.projectId}`,
           },
           {
             label: 'Agregar Poste',
             icon: 'pi pi-plus',
-            routerLink: `/administracion/ver_proyecto/${this.projectId}/agregar_poste`,
+            routerLink: `/administracion/gestion-proyectos/ver_proyecto/${this.projectId}/agregar_poste`,
           },
         ]);
       },
@@ -107,14 +107,17 @@ export class AgregarPosteComponent implements OnInit {
     if (this.form.valid) {
       this.administracionService.addPole({ ...this.form.value, project: this.projectId }).subscribe({
         next: (_response: any) => {
-          this.router.navigate([`/administracion/ver_proyecto/${this.projectId}`]);
+          this.handleSuccess('Poste creado con éxito');
+          setTimeout(() => {
+            this.router.navigate([`/administracion/gestion-proyectos/ver_proyecto/${this.projectId}`]);
+          }, 2000);
         },
         error: (error) => {
           this.handleError(error);
         },
       });
     } else {
-      this.handleInfo('Por favor complete todos los campos');
+      this.handleWarn('Por favor, complete todos los campos');
     }
   }
 
@@ -124,6 +127,10 @@ export class AgregarPosteComponent implements OnInit {
 
   handleInfo(message: string): void {
     this.messageService.add({ severity: 'info', summary: 'Info', detail: message });
+  }
+
+  handleWarn(message: string): void {
+    this.messageService.add({ severity: 'warn', summary: 'Advertencia', detail: message });
   }
 
   handleError(error: { message: string }) {

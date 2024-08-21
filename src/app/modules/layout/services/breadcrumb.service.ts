@@ -19,4 +19,8 @@ export class BreadcrumbService {
   setBreadcrumbs(breadcrumbs: MenuItem[]) {
     this.breadcrumbsSubject.next(breadcrumbs);
   }
+
+  getBreadcrumbs() {
+    return this.breadcrumbsSubject.getValue();
+  }
 }

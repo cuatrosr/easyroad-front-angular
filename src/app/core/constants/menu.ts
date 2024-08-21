@@ -32,7 +32,7 @@ export class Menu {
           icon: 'assets/icons/heroicons/outline/admin-gear.svg',
           label: 'Administracion',
           route: '/administracion',
-          children: [{ label: 'Gestión de Proyectos', route: '/administracion/proyectos' }],
+          children: [{ label: 'Gestión de Proyectos', route: '/administracion/gestion-proyectos' }],
         },
       ],
     },

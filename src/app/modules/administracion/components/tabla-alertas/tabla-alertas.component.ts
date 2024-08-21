@@ -47,6 +47,11 @@ export class TablaAlertasComponent {
   clear(table: Table) {
     this.searchValue = '';
     table.clear();
+    this.handleSuccess('Búsqueda limpiada');
+  }
+
+  handleSuccess(message: string): void {
+    this.messageService.add({ severity: 'success', summary: 'Éxito', detail: message });
   }
 
   handleKeypress(event: KeyboardEvent) {
