@@ -25,14 +25,14 @@
     [disconnected]="disconnectedCount"></app-grid-administracion-card>
 
   <div class="col-span-1 lg:col-span-2">
+    <app-tabla-postes [poles]="poles" (refreshPoles)="getPoles()" [projectId]="projectId"></app-tabla-postes>
+  </div>
+
+  <div class="col-span-1 lg:col-span-2">
     <app-tabla-eventos [events]="events"></app-tabla-eventos>
   </div>
 
   <div class="col-span-1 lg:col-span-2">
     <app-tabla-alertas [alerts]="alerts"></app-tabla-alertas>
-  </div>
-
-  <div class="col-span-1 lg:col-span-2">
-    <app-tabla-postes [poles]="poles" (refreshPoles)="getPoles()" [projectId]="projectId"></app-tabla-postes>
   </div>
 </div>

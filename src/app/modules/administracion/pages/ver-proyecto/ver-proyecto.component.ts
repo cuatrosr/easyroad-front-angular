@@ -7,11 +7,11 @@ import { GridCardComponent } from '../../components/grid-card/grid-card.componen
 import { LogoComponent } from 'src/app/shared/components/logo/logo.component';
 import { AdministracionService } from '../../services/administracion.service';
 import { Event, Project } from 'src/app/core/models/global.model';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-administracion-proyectos',
@@ -27,7 +27,7 @@ import { MessageService } from 'primeng/api';
     TablaEventosComponent,
     TablaAlertasComponent,
   ],
-  providers: [MessageService, AdministracionService, HttpClientModule],
+  providers: [MessageService, AdministracionService, ConfirmationService, HttpClientModule],
 })
 export class VerProyectoComponent implements OnInit {
   administracionService = inject(AdministracionService);
@@ -52,7 +52,7 @@ export class VerProyectoComponent implements OnInit {
     this.getProject();
     this.breadcrumbService.setHomeBreadcrumb({
       icon: 'pi pi-cog',
-      routerLink: '/administracion/proyectos',
+      routerLink: '/administracion/gestion-proyectos',
     });
   }
 
@@ -61,11 +61,11 @@ export class VerProyectoComponent implements OnInit {
       next: (data: Project) => {
         this.project = data;
         this.breadcrumbService.setBreadcrumbs([
-          { label: 'Gestion de Proyectos', icon: 'pi pi-chart-line', routerLink: '/administracion/proyectos' },
+          { label: 'Gestion de Proyectos', icon: 'pi pi-chart-line', routerLink: '/administracion/gestion-proyectos' },
           {
             label: this.project.name,
             icon: 'pi pi-file-check',
-            routerLink: `/administracion/ver_proyecto/${this.projectId}`,
+            routerLink: `/administracion/gestion-proyectos/ver_proyecto/${this.projectId}`,
           },
         ]);
         this.getPoles();

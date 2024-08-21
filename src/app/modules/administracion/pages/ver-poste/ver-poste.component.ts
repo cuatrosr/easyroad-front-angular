@@ -30,6 +30,8 @@ export class VerPosteComponent implements OnInit, OnDestroy {
   router = inject(Router);
   loading: boolean = false;
   poleSerial: string = '';
+  projectId: string = '';
+  project: any = {};
   heartbeat: any = {};
   pole: any = {};
   intervalId: any;
@@ -40,13 +42,14 @@ export class VerPosteComponent implements OnInit, OnDestroy {
   constructor(private breadcrumbService: BreadcrumbService) {}
 
   ngOnInit(): void {
+    this.projectId = this.route.snapshot.paramMap.get('id')!;
     this.poleSerial = this.route.snapshot.paramMap.get('serial')!;
     this.loading = true;
     this.handleSocketConnection();
-    this.getPole();
+    this.getProject();
     this.breadcrumbService.setHomeBreadcrumb({
       icon: 'pi pi-cog',
-      routerLink: '/administracion/proyectos',
+      routerLink: '/administracion/gestion-proyectos',
     });
     this.socket.on('respuesta_solicitud', (data: any) => {
       this.respuestaServidor = data.mensaje; 
@@ -59,17 +62,35 @@ export class VerPosteComponent implements OnInit, OnDestroy {
     }
   }
 
+  getProject() {
+    this.administracionService.getProjectById(this.projectId).subscribe({
+      next: (data) => {
+        this.project = data;
+        this.getPole();
+      },
+      error: (error) => {
+        this.handleError(error);
+        this.loading = false;
+      },
+    });
+  }
+
   getPole() {
     this.administracionService.getPoleBySerial(this.poleSerial).subscribe({
       next: (data) => {
         this.pole = data;
         this.getHeartbeat();
         this.breadcrumbService.setBreadcrumbs([
-          { label: 'Gestion de Proyectos', icon: 'pi pi-chart-line', routerLink: '/administracion/proyectos' },
+          { label: 'Gestion de Proyectos', icon: 'pi pi-chart-line', routerLink: '/administracion/gestion-proyectos' },
+          {
+            label: this.project.name,
+            icon: 'pi pi-file-check',
+            routerLink: `/administracion/gestion-proyectos/ver_proyecto/${this.projectId}`,
+          },
           {
             label: 'Detalles Poste',
-            icon: 'pi pi-file-check',
-            routerLink: `/administracion/ver_poste/${this.poleSerial}`,
+            icon: 'pi pi-caret-down',
+            routerLink: `/administracion/gestion-proyectos/ver_poste/${this.poleSerial}`,
           },
         ]);
       },

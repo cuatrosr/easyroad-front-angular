@@ -61,6 +61,7 @@ export class TablaProyectosComponent implements OnInit {
   clear(table: Table) {
     this.searchValue = '';
     table.clear();
+    this.handleSuccess('Búsqueda limpiada');
   }
 
   handleKeypress(event: KeyboardEvent) {
@@ -128,7 +129,7 @@ export class TablaProyectosComponent implements OnInit {
   onActionClick(project: { _id: number }, action: string) {
     this.projectId = project._id;
     if (action === 'ver') {
-      this.datosProyecto('administracion/ver_proyecto', this.projectId);
+      this.datosProyecto('/administracion/gestion-proyectos/ver_proyecto', this.projectId);
     } else if (action === 'eliminar') {
       this.selectedAction = null;
       this.handleDelete(this.projectId);

@@ -51,11 +51,15 @@ export class AgregarProyectosComponent implements OnInit {
   ngOnInit(): void {
     this.breadcrumbService.setHomeBreadcrumb({
       icon: 'pi pi-cog',
-      routerLink: '/administracion/proyectos',
+      routerLink: '/administracion/gestion-proyectos',
     });
     this.breadcrumbService.setBreadcrumbs([
-      { label: 'Gestion de Proyectos', icon: 'pi pi-chart-line', routerLink: '/administracion/proyectos' },
-      { label: 'Agregar Proyecto', icon: 'pi pi-plus', routerLink: '/administracion/agregar_proyecto' },
+      { label: 'Gestion de Proyectos', icon: 'pi pi-chart-line', routerLink: '/administracion/gestion-proyectos' },
+      {
+        label: 'Agregar Proyecto',
+        icon: 'pi pi-plus',
+        routerLink: '/administracion/gestion-proyectos/agregar_proyecto',
+      },
     ]);
     this.initForm();
   }
@@ -85,14 +89,17 @@ export class AgregarProyectosComponent implements OnInit {
 
       this.administracionService.addProject(formData).subscribe({
         next: (_response: any) => {
-          this.router.navigate(['/paginas/proyectos']);
+          this.handleSuccess('Proyecto creado con éxito');
+          setTimeout(() => {
+            this.router.navigate(['/paginas/proyectos']);
+          }, 2000);
         },
         error: (error) => {
           this.handleError(error);
         },
       });
     } else {
-      this.handleInfo('Por favor complete todos los campos');
+      this.handleWarn('Por favor, suba una imagen y complete todos los campos');
     }
   }
 
@@ -102,6 +109,10 @@ export class AgregarProyectosComponent implements OnInit {
 
   handleInfo(message: string): void {
     this.messageService.add({ severity: 'info', summary: 'Info', detail: message });
+  }
+
+  handleWarn(message: string): void {
+    this.messageService.add({ severity: 'warn', summary: 'Advertencia', detail: message });
   }
 
   handleError(error: { message: string }) {

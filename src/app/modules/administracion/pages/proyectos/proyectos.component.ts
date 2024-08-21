@@ -21,10 +21,10 @@ export class ProyectosComponent implements OnInit {
   ngOnInit(): void {
     this.breadcrumbService.setHomeBreadcrumb({
       icon: 'pi pi-cog',
-      routerLink: '/administracion/proyectos',
+      routerLink: '/administracion/gestion-proyectos',
     });
     this.breadcrumbService.setBreadcrumbs([
-      { label: 'Gestion de Proyectos', icon: 'pi pi-chart-line', routerLink: '/administracion/proyectos' },
+      { label: 'Gestion de Proyectos', icon: 'pi pi-chart-line', routerLink: '/administracion/gestion-proyectos' },
     ]);
   }
 }

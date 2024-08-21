@@ -1,6 +1,6 @@
 <p-breadcrumb class="max-w-full" [model]="items" [home]="home">
   <ng-template let-item pTemplate="item">
-    <a [routerLink]="item.url" class="flex items-center space-x-2">
+    <a [routerLink]="item.url" class="flex font-montserrat items-center space-x-2">
       <i [ngClass]="item.icon" class="text-xl lg:hidden"></i>
       <span class="hidden text-sm lg:inline">{{ item.label }}</span>
     </a>

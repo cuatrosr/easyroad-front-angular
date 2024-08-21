@@ -1,4 +1,5 @@
 <p-toast></p-toast>
+<p-confirmDialog />
 <div class="rounded-lg bg-background px-8 py-8">
   <div class="mb-4 flex items-center justify-between">
     <div class="flex-col items-center">
@@ -7,7 +8,7 @@
   </div>
   <div class="flex justify-end mb-4">
     <p-button
-      (onClick)="redirigirPagina('administracion/ver_proyecto/' + projectId + '/agregar_poste')"
+      (onClick)="redirigirPagina('administracion/gestion-proyectos/ver_proyecto/' + projectId + '/agregar_poste')"
       class="text-xs p-2 rounded-md text-white bg-[#e10a17]"
       [style]="{ 'font-family': 'Montserrat-Bold' }"
       label="Agregar Poste" />
@@ -48,22 +49,22 @@
       <tr>
         <th scope="col" style="min-width: 10rem">
           <div class="flex justify-center">
-            <span class="aling-th-table">Nombres</span>
+            <span class="aling-th-table">Nombre</span>
           </div>
         </th>
         <th scope="col" style="min-width: 10rem">
           <div class="flex justify-center">
-            <span class="aling-th-table">Seriales</span>
+            <span class="aling-th-table">Serial</span>
           </div>
         </th>
         <th scope="col" style="min-width: 5rem">
           <div class="flex justify-center">
-            <span class="aling-th-table">Fabricantes</span>
+            <span class="aling-th-table">Fabricante</span>
           </div>
         </th>
         <th scope="col" style="min-width: 5rem">
           <div class="flex justify-center">
-            <span class="aling-th-table">Modelos</span>
+            <span class="aling-th-table">Modelo</span>
           </div>
         </th>
         <th scope="col" style="min-width: 5rem">
@@ -71,7 +72,7 @@
             <span class="aling-th-table">Estado</span>
           </div>
         </th>
-        <th scope="col" style="min-width: 5rem">Acciones</th>
+        <th scope="col" style="min-width: 5rem">Acción</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-pole class="tabla-poles">
