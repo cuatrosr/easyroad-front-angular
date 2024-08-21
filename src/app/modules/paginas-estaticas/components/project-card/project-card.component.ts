@@ -15,6 +15,6 @@ export class ProjectCardComponent {
   router = inject(Router);
 
   navigateToProject() {
-    this.router.navigate(['/administracion/ver_proyecto/', this.project._id]);
+    this.router.navigate(['/administracion/gestion-proyectos/ver_proyecto/', this.project._id]);
   }
 }
