@@ -11,13 +11,14 @@ import { ToastModule } from 'primeng/toast';
 import { NgIf } from '@angular/common';
 import { v4 as uuidv4 } from 'uuid';
 import { Subscription } from 'rxjs';
+import { CommonModule } from '@angular/common'; 
 
 @Component({
   selector: 'app-administracion-postes',
   standalone: true,
   templateUrl: './ver-poste.component.html',
   styleUrl: './ver-poste.component.scss',
-  imports: [LogoComponent, NgIf, SocketIoModule, BreadcrumbComponent, ButtonModule, ToastModule],
+  imports: [LogoComponent, NgIf, SocketIoModule, BreadcrumbComponent, ButtonModule, ToastModule, CommonModule],
   providers: [MessageService, AdministracionService],
 })
 export class VerPosteComponent implements OnInit, OnDestroy {
@@ -32,6 +33,9 @@ export class VerPosteComponent implements OnInit, OnDestroy {
   heartbeat: any = {};
   pole: any = {};
   intervalId: any;
+  accionEnviada: string | null = null;
+  botonesDeshabilitados: boolean = false;
+  respuestaServidor: string | null = null;
 
   constructor(private breadcrumbService: BreadcrumbService) {}
 
@@ -43,6 +47,9 @@ export class VerPosteComponent implements OnInit, OnDestroy {
     this.breadcrumbService.setHomeBreadcrumb({
       icon: 'pi pi-cog',
       routerLink: '/administracion/proyectos',
+    });
+    this.socket.on('respuesta_solicitud', (data: any) => {
+      this.respuestaServidor = data.mensaje; 
     });
   }
 
@@ -91,17 +98,26 @@ export class VerPosteComponent implements OnInit, OnDestroy {
   }
 
   handleSolicitud(text: string) {
+    this.botonesDeshabilitados = true;
     this.socket.emit('solicitud', {
       uuid_solicitud: uuidv4(),
       tipo_solicitud: text,
       valor_solicitud: '1',
       serial_dispositivo: this.poleSerial,
     });
-    this.handleInfo(`Solicitud de ${text} enviada.`);
+    this.accionEjecutada(text);
+    setTimeout(() => {
+      this.botonesDeshabilitados = false;
+      this.accionEnviada = null;
+    }, 15000);
   }
 
   handleInfo(message: string): void {
     this.messageService.add({ severity: 'info', summary: 'Info', detail: message });
+  }
+
+  accionEjecutada(accion: string){
+    this.accionEnviada = accion ;
   }
 
   handleSocketConnection() {
