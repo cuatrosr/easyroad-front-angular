@@ -1,7 +1,7 @@
 import { AdministracionService } from '../../services/administracion.service';
+import { Component, inject, ViewChild, Input, OnInit } from '@angular/core';
 import { ToastService } from 'src/app/core/services/toast-service.service';
-import { Component, inject, ViewChild, Input } from '@angular/core';
-import { Event } from 'src/app/core/models/global.model';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { AngularSvgIconModule } from 'angular-svg-icon';
@@ -12,7 +12,6 @@ import { DialogModule } from 'primeng/dialog';
 import { MessageService } from 'primeng/api';
 import { FormsModule } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
-import { Router } from '@angular/router';
 import { NgFor } from '@angular/common';
 
 @Component({
@@ -21,28 +20,34 @@ import { NgFor } from '@angular/common';
   styleUrl: './tabla-alertas.component.scss',
   standalone: true,
   imports: [
-    NgFor,
-    FormsModule,
-    DropdownModule,
+    AngularSvgIconModule,
+    MultiSelectModule,
     SplitButtonModule,
+    DropdownModule,
+    ButtonModule,
+    DialogModule,
+    FormsModule,
     ToastModule,
     TableModule,
-    AngularSvgIconModule,
-    ButtonModule,
-    MultiSelectModule,
-    DialogModule,
+    NgFor,
   ],
   providers: [ToastService, AdministracionService],
 })
-export class TablaAlertasComponent {
+export class TablaAlertasComponent implements OnInit {
   @ViewChild('dt1') dt1!: Table;
-  @Input() alerts: Event[] = [];
+  @Input() alerts: any[] = [];
+  projectId: string = '';
   router = inject(Router);
+  route = inject(ActivatedRoute);
   messageService = inject(MessageService);
   administracionService = inject(AdministracionService);
   loading: boolean = false;
   searchValue: string | undefined;
   selectedAction: any;
+
+  ngOnInit(): void {
+    this.projectId = this.route.snapshot.paramMap.get('id')!;
+  }
 
   clear(table: Table) {
     this.searchValue = '';

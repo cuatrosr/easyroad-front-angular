@@ -12,6 +12,7 @@ export class GridCardComponent implements OnInit {
   @Input() alert = 0;
   @Input() working = 0;
   @Input() disconnected = 0;
+  @Input() alertTotal = 0;
 
   ngOnInit(): void {}
 }

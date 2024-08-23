@@ -1,3 +1,4 @@
+import { AdministracionService } from 'src/app/modules/administracion/services/administracion.service';
 import { ClickOutsideDirective } from 'src/app/shared/directives/click-outside.directive';
 import { selectNotifications } from 'src/app/core/store/selectors/notification.selectors';
 import { Notification, NotificationState } from 'src/app/core/models/global.model';
@@ -6,6 +7,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { NotificationService } from '../../services/notification-bell.service';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { Socket, SocketIoModule } from 'ngx-socket-io';
+import { HttpClient } from '@angular/common/http';
 import { NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { BadgeModule } from 'primeng/badge';
@@ -37,12 +39,14 @@ import { Store } from '@ngrx/store';
       transition('closed => open', [animate('0.2s')]),
     ]),
   ],
+  providers: [HttpClient, AdministracionService],
   selector: 'app-notification-bell',
   templateUrl: './notification-bell.component.html',
   styleUrls: ['./notification-bell.component.scss'],
 })
 export class NotificationBellComponent implements OnInit, OnDestroy {
   notifications$ = this.store.select(selectNotifications);
+  administrationService = inject(AdministracionService);
   notifications: Notification[] = [];
   socketSubscription!: Subscription;
   socket = inject(Socket);
@@ -55,10 +59,14 @@ export class NotificationBellComponent implements OnInit, OnDestroy {
       this.notifications = notifications;
     });
     this.socketSubscription = this.socket.fromEvent<any>('alert').subscribe((alert) => {
-      this.notificationService.addNotification({
-        routerLink: `/administracion/ver_poste/${alert.serial_dispositivo}`,
-        title: alert.serial_dispositivo,
-        message: alert.tipo_evento,
+      this.administrationService.getPoleBySerial(alert.serial_dispositivo).subscribe({
+        next: (pole) => {
+          this.notificationService.addNotification({
+            routerLink: `/administracion/gestion-proyectos/ver_proyecto/${pole.project}/ver_poste/${alert.serial_dispositivo}`,
+            title: alert.serial_dispositivo,
+            message: alert.tipo_evento,
+          });
+        },
       });
     });
   }

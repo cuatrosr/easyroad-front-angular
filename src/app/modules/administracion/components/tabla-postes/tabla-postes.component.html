@@ -1,4 +1,4 @@
-<p-toast [preventDuplicates]="true" [breakpoints]="{'600px': { width: '100%', right: '0', left: '0' }}"></p-toast>
+<p-toast [preventDuplicates]="true" [breakpoints]="{ '600px': { width: '100%', right: '0', left: '0' } }"></p-toast>
 <p-confirmDialog />
 <div class="rounded-lg bg-background px-8 py-8">
   <div class="mb-4 flex items-center justify-between">
@@ -72,7 +72,11 @@
             <span class="aling-th-table">Estado</span>
           </div>
         </th>
-        <th scope="col" style="min-width: 5rem">Acción</th>
+        <th scope="col" style="min-width: 5rem">
+          <div class="flex justify-center">
+            <span class="aling-th-table">Acción</span>
+          </div>
+        </th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-pole class="tabla-poles">
@@ -81,7 +85,9 @@
         <td class="text-center">{{ pole.serial }}</td>
         <td class="text-center">{{ pole.fabricante }}</td>
         <td class="text-center">{{ pole.modelo }}</td>
-        <td class="text-center">{{ pole.state }}</td>
+        <td class="text-center">
+          {{ pole.state == 'ok' ? 'Funcionando' : pole.state == 'alert' ? 'En Alerta' : 'Por Configurar' }}
+        </td>
         <td class="text-center">
           <p-dropdown
             [options]="items"

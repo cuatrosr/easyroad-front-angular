@@ -1,34 +1,71 @@
-<p-toast [preventDuplicates]="true" [breakpoints]="{'600px': { width: '100%', right: '0', left: '0' }}"></p-toast>
+<p-toast [preventDuplicates]="true" [breakpoints]="{ '600px': { width: '100%', right: '0', left: '0' } }"></p-toast>
 <div class="px-4 py-4 grid grid-cols-1 gap-4">
   <div class="lg:hidden">
     <app-breadcrumb></app-breadcrumb>
   </div>
 
   <section class="rounded-lg bg-background px-8 py-8">
-    <div class="grid gap-4 mx-auto">
-      <div class="flex justify-center">
-        <div class="flex items-center p-4 bg-blue-100 rounded-md shadow-md">
-          <svg class="w-10 h-10 text-blue-500 mr-4" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd"
-              d="M18 10A8 8 0 1 1 2 10a8 8 0 0 1 16 0zM9 4a1 1 0 1 0-2 0v4a1 1 0 0 0 1 1h4a1 1 0 1 0 0-2H9V4z"
-              clip-rule="evenodd" />
-          </svg>
-          <div>
-            <p class="text-lg font-medium">¡El poste se debe configurar para conectarse!</p>
+    <ng-container *ngIf="!loading; else loadingTemplate">
+      <div class="grid gap-4 mx-auto">
+        <div *ngIf="pole?.state === 'disconnected'" class="flex justify-center">
+          <div class="flex items-center p-4 bg-blue-100 rounded-md shadow-md">
+            <svg class="w-10 h-10 text-blue-500 mr-4" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                fill-rule="evenodd"
+                d="M18 10A8 8 0 1 1 2 10a8 8 0 0 1 16 0zM9 4a1 1 0 1 0-2 0v4a1 1 0 0 0 1 1h4a1 1 0 1 0 0-2H9V4z"
+                clip-rule="evenodd" />
+            </svg>
+            <div>
+              <p class="text-lg font-medium">¡El poste se debe configurar para conectarse!</p>
+            </div>
           </div>
         </div>
+        <div *ngIf="pole?.state === 'alert'" class="flex justify-center">
+          <div class="flex items-center p-4 bg-blue-100 rounded-md shadow-md">
+            <svg class="w-10 h-10 text-yellow-500 mr-4" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                fill-rule="evenodd"
+                d="M18 10A8 8 0 1 1 2 10a8 8 0 0 1 16 0zM9 4a1 1 0 1 0-2 0v4a1 1 0 0 0 1 1h4a1 1 0 1 0 0-2H9V4z"
+                clip-rule="evenodd" />
+            </svg>
+            <div>
+              <p class="text-lg font-medium">¡El poste se encuentra en estado de alerta!</p>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="pole?.state === 'ok'" class="flex justify-center">
+          <div class="flex items-center p-4 bg-blue-100 rounded-md shadow-md">
+            <svg class="w-10 h-10 text-green-500 mr-4" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                fill-rule="evenodd"
+                d="M18 10A8 8 0 1 1 2 10a8 8 0 0 1 16 0zM9 4a1 1 0 1 0-2 0v4a1 1 0 0 0 1 1h4a1 1 0 1 0 0-2H9V4z"
+                clip-rule="evenodd" />
+            </svg>
+            <div>
+              <p class="text-lg font-medium">¡El poste se encuentra funcionando!</p>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="pole?.state === 'alert'" class="flex justify-center">
+          <button
+            (click)="handleResolve()"
+            class="mt-2 px-4 py-2 text-sm font-semibold text-primary-foreground bg-yellow-500 rounded-md hover:bg-yellow-600">
+            Resolver
+          </button>
+        </div>
       </div>
-      <div *ngIf="pole?.state === 'alert'" class="flex justify-center">
-        <button (click)="handleResolve()"
-          class="mt-2 px-4 py-2 text-sm font-semibold text-primary-foreground bg-yellow-500 rounded-md hover:bg-yellow-600">
-          Resolver
-        </button>
-      </div>
-    </div>
+    </ng-container>
+    <ng-template #loadingTemplate>
+      <ng-container *ngIf="loading">
+        <div class="grid grid-cols-1 items-center justify-items-center">
+          <app-loading></app-loading>
+        </div>
+      </ng-container>
+    </ng-template>
   </section>
-  <div [ngClass]="{'grid lg:grid-cols-2 gap-4': pole?.state !== 'disconnected'}">
+  <div [ngClass]="{ 'grid lg:grid-cols-2 gap-4': pole?.state !== 'disconnected' }">
     <section class="rounded-lg bg-background px-8 py-8">
-      <div class="grid grid-cols-2 lg:grid-cols-2 mb-4  border-gray-600">
+      <div class="grid grid-cols-2 lg:grid-cols-2 mb-4 border-gray-600">
         <div
           class="mt-2 text-center border-b-0 font-bold text-foreground border-t-2 border-l-2 border-r-2 py-2 px-2 col-span-2">
           <h1>Información Basica del Poste</h1>
@@ -55,59 +92,67 @@
           <h2 class="font-bold text-foreground">Estado</h2>
         </div>
         <div class="border-2 p-2 text-center border-l-0 border-t-0 text-foreground">
-          <h2>{{ pole.state }}</h2>
-        </div>
-        <div class="border-2 p-2 border-t-0 text-foreground">
-          <h2 class="font-bold text-foreground">IMEI</h2>
-        </div>
-        <div class="border-2 p-2 text-center border-l-0 border-t-0 text-foreground">
-          <h2>{{ heartbeat.contenido?.imei }}</h2>
-        </div>
-        <div class="border-2 p-2 border-t-0 text-foreground">
-          <h2 class="font-bold text-foreground">SIM Numero</h2>
-        </div>
-        <div class="border-2 p-2 text-center border-l-0 border-t-0 text-foreground">
-          <h2>{{ heartbeat.contenido?.numero_sim }}</h2>
-        </div>
-        <div class="border-2 p-2 border-t-0 text-foreground">
-          <h2 class="font-bold text-foreground">Operador</h2>
-        </div>
-        <div class="border-2 p-2 text-center border-l-0 border-t-0 text-foreground">
-          <h2>{{ heartbeat.contenido?.operador }}</h2>
+          <h2>{{ pole.state == 'ok' ? 'Funcionando' : pole.state == 'alert' ? 'En Alerta' : 'Por Configurar' }}</h2>
         </div>
         <div
           class="text-center border-b-0 border-t-0 font-bold text-foreground border-l-2 border-r-2 py-2 px-2 col-span-2">
           <h1>Información Avanzada del Poste</h1>
         </div>
         <div class="border-2 p-2">
-          <h2 class="font-bold text-foreground">Voltaje Bateria</h2>
+          <h2 class="font-bold text-foreground">Fecha de Consulta</h2>
         </div>
         <div class="border-2 p-2 text-center border-l-0 text-foreground">
-          <h2>{{ heartbeat.contenido?.voltaje_bateria }}</h2>
+          <h2>{{ heartbeat?.fecha }}</h2>
+        </div>
+        <div class="border-2 p-2 border-t-0 text-foreground">
+          <h2 class="font-bold text-foreground">IMEI</h2>
+        </div>
+        <div class="border-2 p-2 text-center border-l-0 border-t-0 text-foreground">
+          <h2>{{ heartbeat?.contenido?.imei }}</h2>
+        </div>
+        <div class="border-2 p-2 border-t-0 text-foreground">
+          <h2 class="font-bold text-foreground">SIM Numero</h2>
+        </div>
+        <div class="border-2 p-2 text-center border-l-0 border-t-0 text-foreground">
+          <h2>{{ heartbeat?.contenido?.numero_sim }}</h2>
+        </div>
+        <div class="border-2 p-2 border-t-0 text-foreground">
+          <h2 class="font-bold text-foreground">Operador</h2>
+        </div>
+        <div class="border-2 p-2 text-center border-l-0 border-t-0 text-foreground">
+          <h2>{{ heartbeat?.contenido?.operador }}</h2>
+        </div>
+        <div class="border-2 p-2 border-t-0 text-foreground">
+          <h2 class="font-bold text-foreground">Voltaje Bateria</h2>
+        </div>
+        <div class="border-2 p-2 text-center border-l-0 border-t-0 text-foreground">
+          <h2>{{ heartbeat?.contenido?.voltaje_bateria }}</h2>
         </div>
         <div class="border-2 p-2 border-t-0 text-foreground">
           <h2 class="font-bold text-foreground">Porcentaje Bateria</h2>
         </div>
         <div class="border-2 p-2 text-center border-l-0 border-t-0 text-foreground">
-          <h2>{{ heartbeat.contenido?.porcentaje_bateria }}%</h2>
+          <h2>
+            {{ heartbeat?.contenido?.porcentaje_bateria }}{{ heartbeat?.contenido?.porcentaje_bateria ? '%' : '' }}
+          </h2>
         </div>
         <div class="border-2 p-2 border-t-0 text-foreground">
           <h2 class="font-bold text-foreground">Estado Registro</h2>
         </div>
         <div class="border-2 p-2 text-center border-l-0 border-t-0 text-foreground">
-          <h2>{{ heartbeat.contenido?.estado_registro }}</h2>
+          <h2>{{ heartbeat?.contenido?.estado_registro }}</h2>
         </div>
         <div class="border-2 p-2 border-t-0 text-foreground">
           <h2 class="font-bold text-foreground">Nivel Señal</h2>
         </div>
         <div class="border-2 p-2 text-center border-l-0 border-t-0 text-foreground">
-          <h2>{{ heartbeat.contenido?.nivel_senal }}</h2>
+          <h2>{{ heartbeat?.contenido?.nivel_senal }}</h2>
         </div>
         <div class="border-2 p-2 border-t-0 text-foreground">
           <h2 class="font-bold text-foreground">Tipo Tecnologia Red Movil</h2>
         </div>
         <div class="border-2 p-2 text-center border-l-0 border-t-0 text-foreground">
-          <h2>{{ heartbeat.contenido?.tipo_tecnologia_red_movil }}</h2>
+          <h2>{{ heartbeat?.contenido?.tipo_tecnologia_red_movil }}</h2>
         </div>
       </div>
     </section>
@@ -117,34 +162,46 @@
           <h1>Acciones Remotas al Poste</h1>
         </div>
         <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 mt-2 gap-3 mx-auto">
-          <button pButton
+          <button
+            pButton
             class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-semibold font-montserrat leading-6 text-primary-foreground shadow"
-            (click)="handleSolicitud('llamada_prueba')" [disabled]="botonesDeshabilitados">
+            (click)="handleSolicitud('llamada_prueba')"
+            [disabled]="botonesDeshabilitados">
             Llamada de Prueba
           </button>
-          <button pButton
+          <button
+            pButton
             class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-semibold font-montserrat leading-6 text-primary-foreground shadow"
-            (click)="handleSolicitud('reinicio_modem')" [disabled]="botonesDeshabilitados">
+            (click)="handleSolicitud('reinicio_modem')"
+            [disabled]="botonesDeshabilitados">
             Reinicio de Modem
           </button>
-          <button pButton
+          <button
+            pButton
             class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-semibold font-montserrat leading-6 text-primary-foreground shadow"
-            (click)="handleSolicitud('reinicio_dispositivo')" [disabled]="botonesDeshabilitados">
+            (click)="handleSolicitud('reinicio_dispositivo')"
+            [disabled]="botonesDeshabilitados">
             Reinicio de Dispositivo
           </button>
-          <button pButton
+          <button
+            pButton
             class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-semibold font-montserrat leading-6 text-primary-foreground shadow"
-            (click)="handleSolicitud('peticion_imagen')" [disabled]="botonesDeshabilitados">
+            (click)="handleSolicitud('peticion_imagen')"
+            [disabled]="botonesDeshabilitados">
             Petición de Imagen
           </button>
-          <button pButton
+          <button
+            pButton
             class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-semibold font-montserrat leading-6 text-primary-foreground shadow"
-            (click)="handleSolicitud('solicitud_info_modem')" [disabled]="botonesDeshabilitados">
+            (click)="handleSolicitud('solicitud_info_modem')"
+            [disabled]="botonesDeshabilitados">
             Solicitud Info del Modem
           </button>
-          <button pButton
+          <button
+            pButton
             class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-semibold font-montserrat leading-6 text-primary-foreground shadow"
-            (click)="handleSolicitud('actualizar')" [disabled]="botonesDeshabilitados">
+            (click)="handleSolicitud('actualizar')"
+            [disabled]="botonesDeshabilitados">
             Actualizar Dispositivo
           </button>
         </div>
@@ -153,11 +210,10 @@
         <h1>Estado de la acción</h1>
         <div class="flex justify-center">
           <div class="flex items-center p-4 bg-blue-100 rounded-md shadow-md mt-10">
-            <p class="text-lg font-medium">¡La acción {{accionEnviada}} se está ejecutando!</p>
+            <p class="text-lg font-medium">¡La acción {{ accionEnviada }} se está ejecutando!</p>
           </div>
         </div>
       </div>
     </section>
-
   </div>
 </div>

@@ -1,28 +1,41 @@
+import { NotificationBellComponent } from 'src/app/modules/layout/components/notification-bell/notification-bell.component';
 import { BreadcrumbComponent } from 'src/app/modules/layout/components/breadcrumb/breadcrumb.component';
+import { NotificationService } from 'src/app/modules/layout/services/notification-bell.service';
 import { BreadcrumbService } from 'src/app/modules/layout/services/breadcrumb.service';
+import { LoadingComponent } from 'src/app/shared/components/loading/loading.component';
 import { LogoComponent } from 'src/app/shared/components/logo/logo.component';
 import { AdministracionService } from '../../services/administracion.service';
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Socket, SocketIoModule } from 'ngx-socket-io';
+import { CommonModule, NgIf } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
-import { NgIf } from '@angular/common';
 import { v4 as uuidv4 } from 'uuid';
 import { Subscription } from 'rxjs';
-import { CommonModule } from '@angular/common'; 
 
 @Component({
   selector: 'app-administracion-postes',
   standalone: true,
   templateUrl: './ver-poste.component.html',
   styleUrl: './ver-poste.component.scss',
-  imports: [LogoComponent, NgIf, SocketIoModule, BreadcrumbComponent, ButtonModule, ToastModule, CommonModule],
-  providers: [MessageService, AdministracionService],
+  imports: [
+    NotificationBellComponent,
+    BreadcrumbComponent,
+    LoadingComponent,
+    SocketIoModule,
+    LogoComponent,
+    ButtonModule,
+    CommonModule,
+    ToastModule,
+    NgIf,
+  ],
+  providers: [MessageService, NotificationService, AdministracionService],
 })
 export class VerPosteComponent implements OnInit, OnDestroy {
   administracionService = inject(AdministracionService);
+  notificationService = inject(NotificationService);
   messageService = inject(MessageService);
   socketSubscription!: Subscription;
   route = inject(ActivatedRoute);
@@ -52,7 +65,7 @@ export class VerPosteComponent implements OnInit, OnDestroy {
       routerLink: '/administracion/gestion-proyectos',
     });
     this.socket.on('respuesta_solicitud', (data: any) => {
-      this.respuestaServidor = data.mensaje; 
+      this.respuestaServidor = data.mensaje;
     });
   }
 
@@ -114,7 +127,12 @@ export class VerPosteComponent implements OnInit, OnDestroy {
 
   handleResolve() {
     this.administracionService.handleAlertPole(this.pole._id).subscribe();
-    window.location.reload();
+    this.notificationService.removeAllBySerial(this.poleSerial);
+    this.handleInfo('Se estan resolviendo las alertas del poste');
+    this.loading = true;
+    setTimeout(() => {
+      window.location.reload();
+    }, 2000);
   }
 
   handleSolicitud(text: string) {
@@ -136,8 +154,8 @@ export class VerPosteComponent implements OnInit, OnDestroy {
     this.messageService.add({ severity: 'info', summary: 'Info', detail: message });
   }
 
-  accionEjecutada(accion: string){
-    this.accionEnviada = accion ;
+  accionEjecutada(accion: string) {
+    this.accionEnviada = accion;
   }
 
   handleSocketConnection() {
@@ -148,7 +166,8 @@ export class VerPosteComponent implements OnInit, OnDestroy {
   }
 
   handleError(error: { message: string }) {
-    const errorMessage = error?.message || 'Error desconocido';
+    let errorMessage = error?.message || 'Error desconocido';
+    if (errorMessage.startsWith('Http failure response for')) errorMessage = 'No se pudo conectar con el servidor';
     this.messageService.add({ severity: 'error', summary: 'Error', detail: errorMessage });
   }
 }

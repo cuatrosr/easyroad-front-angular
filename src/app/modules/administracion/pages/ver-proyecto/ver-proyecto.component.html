@@ -22,7 +22,8 @@
   <app-grid-administracion-card
     [alert]="alertCount"
     [working]="workingCount"
-    [disconnected]="disconnectedCount"></app-grid-administracion-card>
+    [disconnected]="disconnectedCount"
+    [alertTotal]="alertTotal"></app-grid-administracion-card>
 
   <div class="col-span-1 lg:col-span-2">
     <app-tabla-postes [poles]="poles" (refreshPoles)="getPoles()" [projectId]="projectId"></app-tabla-postes>

@@ -37,10 +37,11 @@ export class VerProyectoComponent implements OnInit {
   loading: boolean = false;
   project: Project = {} as Project;
   poles: any[] = [];
-  events: Event[] = [];
-  alerts: Event[] = [];
+  events: any[] = [];
+  alerts: any[] = [];
   projectId: string = '';
   alertCount: number = 0;
+  alertTotal: number = 0;
   workingCount: number = 0;
   disconnectedCount: number = 0;
 
@@ -96,6 +97,7 @@ export class VerProyectoComponent implements OnInit {
         this.getAlertCount();
         this.getWorkingCount();
         this.getDisconnectedCount();
+        this.getAlertTotal();
         this.getEvents();
       },
       error: (error) => {
@@ -107,9 +109,11 @@ export class VerProyectoComponent implements OnInit {
 
   getEvents() {
     this.administracionService.getEvents(this.poles).subscribe({
-      next: (data: Event[]) => {
-        this.events = data;
-        this.loading = false;
+      next: (data: any[]) => {
+        this.events = data.map((event: any) => {
+          event.name = this.poles.find((pole) => pole.serial === event.serial).name;
+          return event;
+        });
         this.getAlerts();
       },
       error: (error) => {
@@ -121,8 +125,13 @@ export class VerProyectoComponent implements OnInit {
 
   getAlerts() {
     this.administracionService.getAlerts(this.poles).subscribe({
-      next: (data: Event[]) => {
-        this.alerts = data;
+      next: (data: any[]) => {
+        this.alerts = data.map((alert: any) => {
+          const pole = this.poles.find((pole) => pole.serial === alert.serial);
+          alert.pole = pole ? { name: pole.name, project: pole.project } : null;
+          return alert;
+        });
+        this.getAlertTotal();
         this.loading = false;
       },
       error: (error) => {
@@ -132,8 +141,13 @@ export class VerProyectoComponent implements OnInit {
     });
   }
 
+  getAlertTotal() {
+    this.alertTotal = this.alerts.length;
+  }
+
   handleError(error: { message: string }) {
-    const errorMessage = error?.message || 'Error desconocido';
+    let errorMessage = error?.message || 'Error desconocido';
+    if (errorMessage.startsWith('Http failure response for')) errorMessage = 'No se pudo conectar con el servidor';
     this.messageService.add({ severity: 'error', summary: 'Error', detail: errorMessage });
   }
 }

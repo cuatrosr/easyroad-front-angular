@@ -47,6 +47,11 @@
         </th>
         <th scope="col" style="min-width: 5rem">
           <div class="flex justify-center">
+            <span class="aling-th-table">Nombre</span>
+          </div>
+        </th>
+        <th scope="col" style="min-width: 5rem">
+          <div class="flex justify-center">
             <span class="aling-th-table">Serial</span>
           </div>
         </th>
@@ -65,6 +70,7 @@
     <ng-template pTemplate="body" let-event class="tabla-events">
       <tr class="border-b">
         <td class="text-center">{{ event.fecha }}</td>
+        <td class="text-center">{{ event.name }}</td>
         <td class="text-center">{{ event.serial }}</td>
         <td class="text-center">{{ event.tipo_evento }}</td>
         <td class="text-center">{{ event.estado_evento }}</td>
