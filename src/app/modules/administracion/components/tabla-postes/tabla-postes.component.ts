@@ -57,7 +57,7 @@ export class TablaPostesComponent {
   clear(table: Table) {
     this.searchValue = '';
     table.clear();
-    this.handleSuccess('Búsqueda limpiada');
+    this.handleSuccess('Filtros despejados');
   }
 
   handleKeypress(event: KeyboardEvent) {
@@ -75,8 +75,8 @@ export class TablaPostesComponent {
       header: '¿Está seguro de que desea eliminar este poste?',
       message: 'Una vez eliminado, no podrá acceder al poste nuevamente.',
       icon: 'pi pi-info-circle',
-      acceptButtonStyleClass: 'p-button-danger p-button-text',
-      rejectButtonStyleClass: 'p-button-text p-button-text',
+      rejectButtonStyleClass: 'p-button-text p-button-text bg-[#e10a17] text-white px-4 py-1',
+      acceptButtonStyleClass: 'p-button-danger p-button-text mx-4 bg-[#e10a17] text-white px-4 py-1',
       acceptIcon: 'none',
       rejectIcon: 'none',
 
@@ -96,7 +96,7 @@ export class TablaPostesComponent {
   }
 
   handleSuccess(message: string): void {
-    this.messageService.add({ severity: 'success', summary: 'Éxito', detail: message });
+    this.messageService.add({ severity: 'success', summary: 'Mensaje', detail: message });
   }
 
   handleError(error: { message: string }) {

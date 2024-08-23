@@ -47,11 +47,11 @@ export class TablaEventosComponent {
   clear(table: Table) {
     this.searchValue = '';
     table.clear();
-    this.handleSuccess('Búsqueda limpiada');
+    this.handleSuccess('Filtros despejados');
   }
 
   handleSuccess(message: string): void {
-    this.messageService.add({ severity: 'success', summary: 'Éxito', detail: message });
+    this.messageService.add({ severity: 'success', summary: 'Mensaje', detail: message });
   }
 
   handleKeypress(event: KeyboardEvent) {
