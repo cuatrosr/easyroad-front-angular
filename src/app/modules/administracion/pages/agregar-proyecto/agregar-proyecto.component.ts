@@ -1,6 +1,7 @@
 import { BreadcrumbComponent } from 'src/app/modules/layout/components/breadcrumb/breadcrumb.component';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BreadcrumbService } from 'src/app/modules/layout/services/breadcrumb.service';
+import { LoadingComponent } from 'src/app/shared/components/loading/loading.component';
 import { LogoComponent } from 'src/app/shared/components/logo/logo.component';
 import { AdministracionService } from '../../services/administracion.service';
 import { Component, inject, OnInit } from '@angular/core';
@@ -28,6 +29,7 @@ import { Router } from '@angular/router';
     LogoComponent,
     SkeletonModule,
     FileUploadModule,
+    LoadingComponent,
     ReactiveFormsModule,
     BreadcrumbComponent,
     AngularSvgIconModule,
@@ -40,10 +42,12 @@ export class AgregarProyectosComponent implements OnInit {
   router = inject(Router);
   uploadedFiles: any[] = [];
   form!: FormGroup;
+  loading = false;
   submitted = false;
   selectedImage: string | null = null;
   name: string = '';
   file: any = null;
+  maxFileSize: number = 1000000;
   description: string = '';
 
   constructor(private formBuilder: FormBuilder, private breadcrumbService: BreadcrumbService) {}
@@ -76,7 +80,11 @@ export class AgregarProyectosComponent implements OnInit {
   }
 
   handleImageChange(event: any): void {
-    this.file = event.files[0];
+    this.file = event.files[0].size < this.maxFileSize ? event.files[0] : null;
+  }
+
+  handleImageRemove(_event: any): void {
+    this.file = null;
   }
 
   handleSubmit(): void {
@@ -90,15 +98,20 @@ export class AgregarProyectosComponent implements OnInit {
       this.administracionService.addProject(formData).subscribe({
         next: (_response: any) => {
           this.handleSuccess('Proyecto creado con éxito');
+          this.loading = true;
           setTimeout(() => {
             this.router.navigate(['/paginas/proyectos']);
           }, 2000);
         },
         error: (error) => {
-          this.handleError(error);
+          if (error.status === 400) {
+            this.f['name'].setErrors({ duplicated: true });
+          } else {
+            this.handleError(error);
+          }
         },
       });
-    } else {
+    } else if (!this.file) {
       this.handleWarn('Por favor, suba una imagen y complete todos los campos');
     }
   }
@@ -116,7 +129,8 @@ export class AgregarProyectosComponent implements OnInit {
   }
 
   handleError(error: { message: string }) {
-    const errorMessage = error?.message || 'Error desconocido';
+    let errorMessage = error?.message || 'Error desconocido';
+    if (errorMessage.startsWith('Http failure response for')) errorMessage = 'No se pudo conectar con el servidor';
     this.messageService.add({ severity: 'error', summary: 'Error', detail: errorMessage });
   }
 }
