@@ -47,6 +47,11 @@
         </th>
         <th scope="col" style="min-width: 5rem">
           <div class="flex justify-center">
+            <span class="aling-th-table">Nombre</span>
+          </div>
+        </th>
+        <th scope="col" style="min-width: 5rem">
+          <div class="flex justify-center">
             <span class="aling-th-table">Serial</span>
           </div>
         </th>
@@ -66,10 +71,13 @@
       <tr class="border-b">
         <td class="text-center">{{ alert.fecha }}</td>
         <td class="text-center">
-          <a [routerLink]="['/administracion/ver_poste/', alert.serial]" class="text-primary hover:underline">
-            {{ alert.serial }}
+          <a
+            [routerLink]="['/administracion/gestion-proyectos/ver_proyecto', alert.pole.project, 'ver_poste', alert.serial]"
+            class="text-primary hover:underline">
+            {{ alert.pole.name }}
           </a>
         </td>
+        <td class="text-center">{{ alert.serial }}</td>
         <td class="text-center">{{ alert.tipo_evento }}</td>
         <td class="text-center">{{ alert.estado_evento }}</td>
       </tr>

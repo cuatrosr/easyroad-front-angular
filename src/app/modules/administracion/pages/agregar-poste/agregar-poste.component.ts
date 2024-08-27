@@ -1,6 +1,7 @@
 import { BreadcrumbComponent } from 'src/app/modules/layout/components/breadcrumb/breadcrumb.component';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BreadcrumbService } from 'src/app/modules/layout/services/breadcrumb.service';
+import { LoadingComponent } from 'src/app/shared/components/loading/loading.component';
 import { LogoComponent } from 'src/app/shared/components/logo/logo.component';
 import { AdministracionService } from '../../services/administracion.service';
 import { Project } from 'src/app/core/models/global.model';
@@ -25,6 +26,7 @@ import { ToastModule } from 'primeng/toast';
     BreadcrumbComponent,
     ReactiveFormsModule,
     FileUploadModule,
+    LoadingComponent,
     SkeletonModule,
     LogoComponent,
     CommonModule,
@@ -107,17 +109,22 @@ export class AgregarPosteComponent implements OnInit {
     if (this.form.valid) {
       this.administracionService.addPole({ ...this.form.value, project: this.projectId }).subscribe({
         next: (_response: any) => {
+          this.loading = true;
           this.handleSuccess('Poste creado con éxito');
           setTimeout(() => {
             this.router.navigate([`/administracion/gestion-proyectos/ver_proyecto/${this.projectId}`]);
           }, 2000);
         },
         error: (error) => {
-          this.handleError(error);
+          if (error.status === 400 && error.error.message.includes('serial')) {
+            this.f['serial'].setErrors({ duplicated: true });
+          } else if (error.status === 400 && error.error.message.includes('name')) {
+            this.f['name'].setErrors({ duplicated: true });
+          } else {
+            this.handleError(error);
+          }
         },
       });
-    } else {
-      this.handleWarn('Por favor, complete todos los campos');
     }
   }
 
@@ -134,7 +141,8 @@ export class AgregarPosteComponent implements OnInit {
   }
 
   handleError(error: { message: string }) {
-    const errorMessage = error?.message || 'Error desconocido';
+    let errorMessage = error?.message || 'Error desconocido';
+    if (errorMessage.startsWith('Http failure response for')) errorMessage = 'No se pudo conectar con el servidor';
     this.messageService.add({ severity: 'error', summary: 'Error', detail: errorMessage });
   }
 }

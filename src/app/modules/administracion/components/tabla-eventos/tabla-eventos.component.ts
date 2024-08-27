@@ -36,7 +36,7 @@ import { NgFor } from '@angular/common';
 })
 export class TablaEventosComponent {
   @ViewChild('dt1') dt1!: Table;
-  @Input() events: Event[] = [];
+  @Input() events: any[] = [];
   router = inject(Router);
   messageService = inject(MessageService);
   administracionService = inject(AdministracionService);
