@@ -9,38 +9,21 @@
   <div class="flex justify-end mb-4">
     <p-button
       (onClick)="redirigirPagina('administracion/gestion-proyectos/ver_proyecto/' + projectId + '/agregar_poste')"
-      class="text-xs p-2 rounded-md text-white bg-[#e10a17]"
-      [style]="{ 'font-family': 'Montserrat-Bold' }"
+      class="text-xs p-2 rounded-md text-white bg-[#e10a17]" [style]="{ 'font-family': 'Montserrat-Bold' }"
       label="Agregar Poste" />
   </div>
-  <p-table
-    #dt1
-    [value]="poles"
-    dataKey="_id"
-    [rows]="10"
-    [rowsPerPageOptions]="[10, 25, 50]"
-    [loading]="loading"
-    [scrollable]="true"
-    [paginator]="true"
-    [globalFilterFields]="['_id', 'serial', 'fabricante', 'modelo', 'estado']"
+  <p-table #dt1 [value]="poles" dataKey="_id" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading"
+    [scrollable]="true" [paginator]="true" [globalFilterFields]="['_id', 'serial', 'fabricante', 'modelo', 'estado']"
     [tableStyle]="{ 'min-width': '60rem' }">
     <ng-template pTemplate="caption">
       <div class="flex gap-2">
-        <p-button
-          label="Limpiar Filtros"
-          icon="pi pi-filter-slash"
-          (click)="clear(dt1)"
-          onkeypress="handleKeyPress($event)"
-          [text]="true"
+        <p-button label="Limpiar Filtros" icon="pi pi-filter-slash" (click)="clear(dt1)"
+          onkeypress="handleKeyPress($event)" [text]="true"
           class="text-xs bg-[#e10a17] p-1 lg:p-2 text-white rounded-md lg:mt-3 md:mt-3 w-auto text-center"
           [style]="{ 'font-family': 'Montserrat-Bold' }" />
         <span class="p-input-icon-left ml-auto">
-          <input
-            pInputText
-            type="text"
-            [(ngModel)]="searchValue"
-            (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
-            placeholder="Buscar"
+          <input pInputText type="text" [(ngModel)]="searchValue"
+            (input)="dt1.filterGlobal($any($event.target).value, 'contains')" placeholder="Buscar"
             class="w-36 lg:w-80 lg:text-sm" />
         </span>
       </div>
@@ -81,15 +64,13 @@
         <td class="text-center">{{ pole.serial }}</td>
         <td class="text-center">{{ pole.fabricante }}</td>
         <td class="text-center">{{ pole.modelo }}</td>
-        <td class="text-center">{{ pole.state }}</td>
         <td class="text-center">
-          <p-dropdown
-            [options]="items"
-            placeholder="Acciones"
-            [(ngModel)]="selectedAction"
-            (onChange)="onActionClick(pole, $event.value)"
-            appendTo="body"
-            [style]="{ 'font-size': '12px' }">
+          <p-tag class="font-montserrat" *ngIf="pole.state == 'ok'" severity="success" value="Conectado"></p-tag>
+          <p-tag class="font-montserrat" *ngIf="pole.state != 'ok'" severity="danger" value="Desconectado"></p-tag>
+        </td>
+        <td class="text-center">
+          <p-dropdown [options]="items" placeholder="Acciones" [(ngModel)]="selectedAction"
+            (onChange)="onActionClick(pole, $event.value)" appendTo="body" [style]="{ 'font-size': '12px' }">
           </p-dropdown>
         </td>
       </tr>

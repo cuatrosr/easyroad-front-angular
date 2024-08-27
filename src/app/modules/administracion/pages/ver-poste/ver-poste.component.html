@@ -1,12 +1,14 @@
-<p-toast [preventDuplicates]="true" [breakpoints]="{'600px': { width: '100%', right: '0', left: '0' }}"></p-toast>
-<div class="px-4 py-4 grid grid-cols-1 gap-4">
+<p-toast [breakpoints]="{'600px': { width: '100%', right: '0', left: '0' }}"></p-toast>
+<div *ngIf="heartbeat?.contenido; else noData" class="px-4 py-4 grid grid-cols-1 gap-4">
   <div class="lg:hidden">
     <app-breadcrumb></app-breadcrumb>
   </div>
-
   <section class="rounded-lg bg-background px-8 py-8">
     <div class="grid gap-4 mx-auto">
-      <div class="flex justify-center">
+      <div *ngIf="pole?.state !== 'disconnected'" class="text-center text-lg font-bold text-foreground">
+        <h1>Detalles Poste</h1>
+      </div>
+      <div *ngIf="pole?.state !== 'ok'" class="flex justify-center">
         <div class="flex items-center p-4 bg-blue-100 rounded-md shadow-md">
           <svg class="w-10 h-10 text-blue-500 mr-4" fill="currentColor" viewBox="0 0 20 20">
             <path fill-rule="evenodd"
@@ -14,7 +16,7 @@
               clip-rule="evenodd" />
           </svg>
           <div>
-            <p class="text-lg font-medium">¡El poste se debe configurar para conectarse!</p>
+            <p class="text-sm font-medium text-center lg:text-lg">¡El poste se debe configurar para conectarse!</p>
           </div>
         </div>
       </div>
@@ -61,19 +63,19 @@
           <h2 class="font-bold text-foreground">IMEI</h2>
         </div>
         <div class="border-2 p-2 text-center border-l-0 border-t-0 text-foreground">
-          <h2>{{ heartbeat.contenido?.imei }}</h2>
+          <h2>{{ heartbeat.contenido?.imei == null ? 'Sin Datos' : heartbeat.contenido?.imei }}</h2>
         </div>
         <div class="border-2 p-2 border-t-0 text-foreground">
           <h2 class="font-bold text-foreground">SIM Numero</h2>
         </div>
         <div class="border-2 p-2 text-center border-l-0 border-t-0 text-foreground">
-          <h2>{{ heartbeat.contenido?.numero_sim }}</h2>
+          <h2>{{ heartbeat.contenido?.numero_sim == null ? 'Sin Datos' : heartbeat.contenido?.numero_sim }}</h2>
         </div>
         <div class="border-2 p-2 border-t-0 text-foreground">
           <h2 class="font-bold text-foreground">Operador</h2>
         </div>
         <div class="border-2 p-2 text-center border-l-0 border-t-0 text-foreground">
-          <h2>{{ heartbeat.contenido?.operador }}</h2>
+          <h2>{{ heartbeat.contenido?.operador == null ? 'Sin Datos' : heartbeat.contenido?.operador }}</h2>
         </div>
         <div
           class="text-center border-b-0 border-t-0 font-bold text-foreground border-l-2 border-r-2 py-2 px-2 col-span-2">
@@ -83,77 +85,71 @@
           <h2 class="font-bold text-foreground">Voltaje Bateria</h2>
         </div>
         <div class="border-2 p-2 text-center border-l-0 text-foreground">
-          <h2>{{ heartbeat.contenido?.voltaje_bateria }}</h2>
+          <h2>{{ heartbeat.contenido?.voltaje_bateria == null ? 'Sin Datos' : heartbeat.contenido?.voltaje_bateria }}
+          </h2>
         </div>
         <div class="border-2 p-2 border-t-0 text-foreground">
           <h2 class="font-bold text-foreground">Porcentaje Bateria</h2>
         </div>
         <div class="border-2 p-2 text-center border-l-0 border-t-0 text-foreground">
-          <h2>{{ heartbeat.contenido?.porcentaje_bateria }}%</h2>
+          <h2>{{ heartbeat.contenido?.porcentaje_bateria == null ? 'Sin Datos' : heartbeat.contenido?.porcentaje_bateria
+            }}%</h2>
         </div>
         <div class="border-2 p-2 border-t-0 text-foreground">
           <h2 class="font-bold text-foreground">Estado Registro</h2>
         </div>
         <div class="border-2 p-2 text-center border-l-0 border-t-0 text-foreground">
-          <h2>{{ heartbeat.contenido?.estado_registro }}</h2>
+          <h2>{{ heartbeat.contenido?.estado_registro == null ? 'Sin Datos' : heartbeat.contenido?.estado_registro }}
+          </h2>
         </div>
         <div class="border-2 p-2 border-t-0 text-foreground">
           <h2 class="font-bold text-foreground">Nivel Señal</h2>
         </div>
         <div class="border-2 p-2 text-center border-l-0 border-t-0 text-foreground">
-          <h2>{{ heartbeat.contenido?.nivel_senal }}</h2>
+          <h2>{{ heartbeat.contenido?.nivel_senal == null ? 'Sin Datos' : heartbeat.contenido?.nivel_senal }}</h2>
         </div>
         <div class="border-2 p-2 border-t-0 text-foreground">
           <h2 class="font-bold text-foreground">Tipo Tecnologia Red Movil</h2>
         </div>
         <div class="border-2 p-2 text-center border-l-0 border-t-0 text-foreground">
-          <h2>{{ heartbeat.contenido?.tipo_tecnologia_red_movil }}</h2>
+          <h2>{{ heartbeat.contenido?.tipo_tecnologia_red_movil == null ? 'Sin Datos' : heartbeat.contenido?.tipo_tecnologia_red_movil }}</h2>
         </div>
       </div>
     </section>
     <section *ngIf="pole?.state !== 'disconnected'" class="rounded-lg bg-background px-8 gap-3 py-8">
-      <div class="grid mx-auto gap-4 py-8">
+      <div *ngIf="!botonesDeshabilitados" class="grid mx-auto gap-4 py-8 my-[15%]">
         <div class="text-center font-bold font-montserrat text-foreground text-lg pt-2 pb-4">
           <h1>Acciones Remotas al Poste</h1>
         </div>
+        <p-confirmDialog />
         <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 mt-2 gap-3 mx-auto">
           <button pButton
             class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-semibold font-montserrat leading-6 text-primary-foreground shadow"
-            (click)="handleSolicitud('llamada_prueba')" [disabled]="botonesDeshabilitados">
+            (click)="accionesEvent($event,'llamada_prueba')" [disabled]="botonesDeshabilitados">
             Llamada de Prueba
           </button>
           <button pButton
             class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-semibold font-montserrat leading-6 text-primary-foreground shadow"
-            (click)="handleSolicitud('reinicio_modem')" [disabled]="botonesDeshabilitados">
+            (click)="accionesEvent($event,'reinicio_modem')" [disabled]="botonesDeshabilitados">
             Reinicio de Modem
           </button>
           <button pButton
-            class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-semibold font-montserrat leading-6 text-primary-foreground shadow"
-            (click)="handleSolicitud('reinicio_dispositivo')" [disabled]="botonesDeshabilitados">
+            class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-semibold font-montserrat col-span-2 lg:col-span-1 leading-6 text-primary-foreground shadow"
+            (click)="accionesEvent($event,'reinicio_dispositivo')" [disabled]="botonesDeshabilitados">
             Reinicio de Dispositivo
-          </button>
-          <button pButton
-            class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-semibold font-montserrat leading-6 text-primary-foreground shadow"
-            (click)="handleSolicitud('peticion_imagen')" [disabled]="botonesDeshabilitados">
-            Petición de Imagen
-          </button>
-          <button pButton
-            class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-semibold font-montserrat leading-6 text-primary-foreground shadow"
-            (click)="handleSolicitud('solicitud_info_modem')" [disabled]="botonesDeshabilitados">
-            Solicitud Info del Modem
-          </button>
-          <button pButton
-            class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-semibold font-montserrat leading-6 text-primary-foreground shadow"
-            (click)="handleSolicitud('actualizar')" [disabled]="botonesDeshabilitados">
-            Actualizar Dispositivo
           </button>
         </div>
       </div>
-      <div *ngIf="accionEnviada" class="text-center font-bold font-montserrat text-foreground text-lg pt-2 mt-4 pb-4">
-        <h1>Estado de la acción</h1>
+        <div class="text-center">
+          <p-progressSpinner *ngIf="mostrarSpinner" ariaLabel="loading" />
+        </div>
+      <div *ngIf="accionEnviada"
+        class="text-center font-bold font-montserrat bg-background text-foreground text-lg pt-2 mt-4 pb-4">
+        <h1 class="text-foreground">Estado de la acción</h1>
         <div class="flex justify-center">
           <div class="flex items-center p-4 bg-blue-100 rounded-md shadow-md mt-10">
-            <p class="text-lg font-medium">¡La acción {{accionEnviada}} se está ejecutando!</p>
+            <h2 class="text-sm lg:text-lg font-medium text-foreground text-center">¡La acción <span
+                class="font-bold">{{accionEnviada}}</span> se está ejecutando!</h2>
           </div>
         </div>
       </div>
@@ -161,3 +157,15 @@
 
   </div>
 </div>
+<ng-template #noData>
+  <div class="flex items-center p-4 bg-blue-100 rounded-md shadow-md">
+    <svg class="w-10 h-10 text-blue-500 mr-4" fill="currentColor" viewBox="0 0 20 20">
+      <path fill-rule="evenodd"
+        d="M18 10A8 8 0 1 1 2 10a8 8 0 0 1 16 0zM9 4a1 1 0 1 0-2 0v4a1 1 0 0 0 1 1h4a1 1 0 1 0 0-2H9V4z"
+        clip-rule="evenodd" />
+    </svg>
+    <div>
+      <p class="text-sm font-medium text-center lg:text-lg">¡El poste se debe configurar para conectarse!</p>
+    </div>
+  </div>
+</ng-template>
