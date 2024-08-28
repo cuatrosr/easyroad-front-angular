@@ -15,7 +15,7 @@ import { FormsModule } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
 import { Router } from '@angular/router';
 import { NgFor } from '@angular/common';
-
+import { TagModule } from 'primeng/tag';
 @Component({
   selector: 'app-tabla-postes',
   templateUrl: './tabla-postes.component.html',
@@ -33,6 +33,7 @@ import { NgFor } from '@angular/common';
     TableModule,
     FormsModule,
     NgFor,
+    TagModule
   ],
   providers: [ToastService, AdministracionService],
 })
