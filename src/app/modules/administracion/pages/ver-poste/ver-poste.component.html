@@ -5,7 +5,7 @@
   </div>
   <section class="rounded-lg bg-background px-8 py-8">
     <div class="grid gap-4 mx-auto">
-      <div *ngIf="pole?.state !== 'disconnected'" class="text-center text-lg font-bold text-foreground">
+      <div *ngIf="pole?.state !== 'disconnected' && pole?.state !== 'alert'" class="text-center text-lg font-bold text-foreground">
         <h1>Detalles Poste</h1>
       </div>
       <div *ngIf="pole?.state !== 'ok'" class="flex justify-center">
@@ -15,15 +15,18 @@
               d="M18 10A8 8 0 1 1 2 10a8 8 0 0 1 16 0zM9 4a1 1 0 1 0-2 0v4a1 1 0 0 0 1 1h4a1 1 0 1 0 0-2H9V4z"
               clip-rule="evenodd" />
           </svg>
-          <div>
+          <div *ngIf="pole?.state == 'disconnected'">
             <p class="text-sm font-medium text-center lg:text-lg">¡El poste se debe configurar para conectarse!</p>
+          </div>
+          <div *ngIf="pole?.state == 'alert'">
+            <p class="text-sm font-medium text-center lg:text-lg">¡Se debe Resolver Alerta!</p>
           </div>
         </div>
       </div>
       <div *ngIf="pole?.state === 'alert'" class="flex justify-center">
         <button (click)="handleResolve()"
           class="mt-2 px-4 py-2 text-sm font-semibold text-primary-foreground bg-yellow-500 rounded-md hover:bg-yellow-600">
-          Resolver
+          Resolver Alerta
         </button>
       </div>
     </div>
@@ -56,8 +59,8 @@
         <div class="border-2 p-2 border-t-0 text-foreground">
           <h2 class="font-bold text-foreground">Estado</h2>
         </div>
-        <div class="border-2 p-2 text-center border-l-0 border-t-0 text-foreground">
-          <h2>{{ pole.state }}</h2>
+        <div class="border-2 p-2 text-center border-l-0 border-t-0 text-foreground font-semibold">
+          {{ pole.state === 'ok' ? 'Funcionando' : (pole.state === 'disconnected' ? 'Desconectado' : (pole.state === 'alert' ? 'En alerta' : 'Estado Desconocido')) }}
         </div>
         <div class="border-2 p-2 border-t-0 text-foreground">
           <h2 class="font-bold text-foreground">IMEI</h2>
@@ -109,10 +112,10 @@
           <h2>{{ heartbeat.contenido?.nivel_senal == null ? 'Sin Datos' : heartbeat.contenido?.nivel_senal }}</h2>
         </div>
         <div class="border-2 p-2 border-t-0 text-foreground">
-          <h2 class="font-bold text-foreground">Tipo Tecnologia Red Movil</h2>
+          <h2 class="font-bold text-foreground">Última info del poste</h2>
         </div>
         <div class="border-2 p-2 text-center border-l-0 border-t-0 text-foreground">
-          <h2>{{ heartbeat.contenido?.tipo_tecnologia_red_movil == null ? 'Sin Datos' : heartbeat.contenido?.tipo_tecnologia_red_movil }}</h2>
+          <h2>{{ heartbeat.updated == null ? 'Sin Datos' : heartbeat.updated }}</h2>
         </div>
       </div>
     </section>

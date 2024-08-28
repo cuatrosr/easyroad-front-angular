@@ -122,8 +122,8 @@
     </ng-container>
     <ng-template #loadingTemplate>
       <ng-container *ngIf="loading">
-        <div class="grid grid-cols-1 items-center justify-items-center">
-          <app-loading></app-loading>
+        <div class="text-center">
+          <p-progressSpinner  ariaLabel="loading" />
         </div>
       </ng-container>
     </ng-template>

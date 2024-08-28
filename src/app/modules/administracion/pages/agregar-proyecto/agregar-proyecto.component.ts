@@ -14,6 +14,7 @@ import { ButtonModule } from 'primeng/button';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { Router } from '@angular/router';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @Component({
   selector: 'app-administracion-agregar-proyecto',
@@ -33,6 +34,7 @@ import { Router } from '@angular/router';
     ReactiveFormsModule,
     BreadcrumbComponent,
     AngularSvgIconModule,
+    ProgressSpinnerModule
   ],
   providers: [MessageService, AdministracionService, HttpClientModule],
 })

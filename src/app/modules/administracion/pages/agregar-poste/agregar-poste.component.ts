@@ -15,6 +15,7 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { ButtonModule } from 'primeng/button';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @Component({
   selector: 'app-administracion-agregar-poste',
@@ -34,6 +35,7 @@ import { ToastModule } from 'primeng/toast';
     FormsModule,
     ToastModule,
     NgIf,
+    ProgressSpinnerModule
   ],
   providers: [MessageService, AdministracionService, HttpClientModule],
 })

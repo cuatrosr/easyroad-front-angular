@@ -79,11 +79,10 @@ export class VerPosteComponent implements OnInit, OnDestroy {
         this.pole = data;
         this.getHeartbeat();
         this.breadcrumbService.setBreadcrumbs([
-          { label: 'Gestion de Proyectos', icon: 'pi pi-chart-line', routerLink: '/administracion/proyectos' },
+          { label: 'Gestion de Proyectos', icon: 'pi pi-chart-line', routerLink: `gestion-proyectos/ver_proyecto/${this.pole.project}` },
           {
             label: 'Detalles Poste',
             icon: 'pi pi-file-check',
-            routerLink: `/administracion/ver_poste/${this.poleSerial}`,
           },
         ]);
       },

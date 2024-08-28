@@ -2,33 +2,64 @@
   <div class="text-center text-foreground text-lg pt-2 pb-4 lg:hidden md:hidden">
     <h1>Metricas</h1>
   </div>
-  <div
-    class="rounded-lg bg-background text-xs grid grid-cols-2 gap-2 mx-auto lg:m-4 lg:gap-4 items-center justify-center lg:grid-cols-2 md:mx-4">
-    <div
-      class="rounded-lg border h-32 w-32 flex justify-center items-center flex-col shadow-lg lg:h-full md:h-full md:w-full mb-4">
-      <svg-icon src="assets/icons/heroicons/outline/reloj.svg" [svgClass]="'h-10 w-10 text-foreground'"></svg-icon>
-      <span class="text-xs pt-1 lg:text-sm text-foreground">En Alerta</span>
-      <span class="text-xs lg:text-sm text-foreground">{{ alert }}</span>
+  <div class="rounded-lg bg-background text-xs grid grid-cols-2 gap-2 mx-auto lg:m-4 lg:gap-4 items-center justify-center lg:grid-cols-2 md:mx-4 ">
+    <div class="rounded-lg border h-32 w-32 flex justify-center items-center flex-col shadow-lg lg:h-full md:h-full md:w-full mb-2 text-center">
+      <p-tag class="text-xs lg:text-sm text-foreground" severity="danger">
+        <div class="flex align-items-center">
+          <i class="pi pi-exclamation-triangle h-6 w-8 text-white mt-1" style="font-size: 20px"></i>
+          <p class="hidden lg:block text-xs mt-[6px] text-white">En Alerta</p>
+      </div>
+    </p-tag>
+      <div class="text-xs lg:text-sm text-foreground border-2 rounded-full mt-2 px-2 py-1"
+        [ngClass]="{'bg-red-500 font-bold': alert !== 0}">
+        <h1 [ngClass]="{'text-white': alert !== 0}">
+          {{ alert }}
+        </h1>
+      </div>
     </div>
-    <div
-      class="rounded-lg border h-32 w-32 flex justify-center items-center flex-col shadow-lg lg:h-full md:h-full md:w-full mb-4">
-      <svg-icon src="assets/icons/heroicons/outline/money.svg" [svgClass]="'h-10 w-10 text-foreground'"></svg-icon>
-      <span class="text-xs pt-1 lg:text-sm text-foreground">Funcionando</span>
-      <span class="text-xs lg:text-sm text-foreground">{{ working }}</span>
+    <div class="rounded-lg border h-32 w-32 flex justify-center items-center flex-col shadow-lg lg:h-full md:h-full md:w-full mb-2 text-center">
+      <p-tag class="text-xs lg:text-sm text-foreground" severity="success">
+        <div class="flex align-items-center">
+          <i class="pi pi-check h-6 w-8 text-white mt-1" style="font-size: 20px"></i>
+          <p class="hidden lg:block text-xs mt-[6px] text-white">Funcionando</p>
+      </div>
+    </p-tag>
+      <div class="text-xs lg:text-sm text-foreground border-2 rounded-full mt-2 px-2 py-1"
+        [ngClass]="{'bg-green-500 font-bold': working !== 0}">
+        <p [ngClass]="{'text-white': working !== 0}">
+          {{ working }}
+        </p>
+      </div>
     </div>
-    <div
-      class="rounded-lg border h-32 w-32 flex justify-center items-center flex-col shadow-lg lg:h-full md:h-full md:w-full">
-      <svg-icon
-        src="assets/icons/heroicons/outline/carro.svg"
-        [svgClass]="'h-10 w-10 group-hover:stroke-white text-foreground'"></svg-icon>
-      <span class="text-xs pt-1 lg:text-sm text-foreground"> Por Configurar </span>
-      <span class="text-xs lg:text-sm text-foreground">{{ disconnected }}</span>
+
+    <div class="rounded-lg border h-32 w-32 flex justify-center items-center flex-col shadow-lg lg:h-full md:h-full md:w-full mb-2 text-center">
+      <p-tag class="text-xs lg:text-sm text-foreground" severity="warning">
+        <div class="flex align-items-center">
+          <i class="pi pi-cog h-6 w-8 text-white mt-1" style="font-size: 20px"></i>
+          <p class="hidden lg:block text-xs mt-[6px] text-white">Por Configurar</p>
+      </div>
+    </p-tag>
+      <div class="text-xs lg:text-sm text-foreground border-2 rounded-full mt-2 px-2 py-1"
+        [ngClass]="{'bg-[#f97316] font-bold': disconnected !== 0}">
+        <p [ngClass]="{'text-white': disconnected !== 0}">
+          {{ disconnected }}
+        </p>
+      </div>
     </div>
-    <div
-      class="rounded-lg border h-32 w-32 flex justify-center items-center flex-col shadow-lg lg:h-full md:h-full md:w-full">
-      <svg-icon src="assets/icons/heroicons/outline/reportes.svg" [svgClass]="'h-10 w-10 text-foreground'"></svg-icon>
-      <span class="text-xs pt-1 lg:text-sm text-foreground"> Conteo de Alertas </span>
-      <span class="text-xs lg:text-sm text-foreground">{{ alertTotal }}</span>
+
+    <div class="rounded-lg border h-32 w-32 flex justify-center items-center flex-col shadow-lg lg:h-full md:h-full md:w-full mb-2 text-center">
+      <p-tag class="text-xs lg:text-sm text-foreground">
+        <div class="flex align-items-center">
+          <i class="pi pi-info-circle h-6 w-8 text-white mt-1" style="font-size: 20px"></i>
+          <p class="hidden lg:block text-xs mt-[6px] text-white">Conteo de Alertas</p>
+        </div>
+      </p-tag>
+      <div class="text-xs lg:text-sm text-foreground border-2 rounded-full mt-2 px-2 py-1"
+        [ngClass]="{'bg-[#3b82f6] font-bold': alertTotal !== 0}">
+        <p [ngClass]="{'text-white': alertTotal !== 0}">
+          {{ alertTotal }}
+        </p>
+      </div>
     </div>
   </div>
 </section>
