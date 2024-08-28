@@ -36,16 +36,14 @@
                   <div class="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 gap-1 lg:gap-3 mx-auto w-full">
                     <div class="flex flex-col">
                       <div class="relative mt-4 h-1/2 flex items-center">
-                        <span class="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none"
-                          ><svg-icon
-                            src="assets/icons/heroicons/outline/address-book.svg"
-                            [svgClass]="'h-6 w-6 mr-2'"></svg-icon
-                        ></span>
+                        <span class="absolute left-3 top-1/2 transform -translate-y-1/2 z-20 pointer-events-none">
+                          <svg-icon src="assets/icons/heroicons/outline/address-book.svg" [svgClass]="'h-6 w-6 mr-2'"></svg-icon>
+                        </span>
                         <input
                           type="text"
                           id="name"
                           [ngClass]="{ 'is__invalid-input': submitted && f['name'].errors }"
-                          class="peer block pl-10 pr-6 py-2 rounded-lg border border-gray-300"
+                          class="peer block w-full pl-10 pr-6 py-2 rounded-lg border border-gray-300 focus:outline-none "
                           placeholder="Nombre"
                           formControlName="name" />
                       </div>
@@ -53,14 +51,12 @@
                         <div *ngIf="f['name'].errors['required']">Nombre Requerido</div>
                         <div *ngIf="f['name'].errors['duplicated']">Nombre Duplicado</div>
                       </div>
-                    </div>
+                    </div>                                      
                     <div class="flex flex-col">
                       <div class="relative mt-4 h-1/2 flex items-center">
-                        <span class="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none"
-                          ><svg-icon
-                            src="assets/icons/heroicons/outline/barcode.svg"
-                            [svgClass]="'h-6 w-6 mr-2'"></svg-icon
-                        ></span>
+                        <span class="absolute left-3 top-1/2 transform -translate-y-1/2 z-20 pointer-events-none">
+                          <svg-icon src="assets/icons/heroicons/outline/barcode.svg" [svgClass]="'h-6 w-6 mr-2'"></svg-icon>
+                        </span>
                         <input
                           type="text"
                           id="serial"
@@ -76,11 +72,9 @@
                     </div>
                     <div class="flex flex-col">
                       <div class="relative mt-4 h-1/2 flex items-center">
-                        <span class="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none"
-                          ><svg-icon
-                            src="assets/icons/heroicons/outline/warehouse.svg"
-                            [svgClass]="'h-6 w-6 mr-2'"></svg-icon
-                        ></span>
+                        <span class="absolute left-3 top-1/2 transform -translate-y-1/2 z-20 pointer-events-none">
+                          <svg-icon src="assets/icons/heroicons/outline/warehouse.svg" [svgClass]="'h-6 w-6 mr-2'"></svg-icon>
+                        </span>
                         <input
                           type="text"
                           id="fabricante"
@@ -95,11 +89,9 @@
                     </div>
                     <div class="flex flex-col">
                       <div class="relative mt-4 h-1/2 flex items-center">
-                        <span class="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none"
-                          ><svg-icon
-                            src="assets/icons/heroicons/outline/information-circle.svg"
-                            [svgClass]="'h-6 w-6 mr-2'"></svg-icon
-                        ></span>
+                        <span class="absolute left-3 top-1/2 transform -translate-y-1/2 z-20 pointer-events-none">
+                          <svg-icon src="assets/icons/heroicons/outline/information-circle.svg" [svgClass]="'h-6 w-6 mr-2'"></svg-icon>
+                      </span>
                         <input
                           type="text"
                           id="modelo"
